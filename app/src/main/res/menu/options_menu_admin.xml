@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/announcement_menu"
+        android:icon="@drawable/ic_announcement"
+        app:showAsAction="ifRoom"
+        android:contentDescription="@string/announcement"
+        android:title="@string/announcement" />
+
+    <group android:menuCategory="container">
+        <item
+            android:id="@+id/management_books_menu"
+            android:title="@string/management_books"
+            android:contentDescription="@string/management_books"
+            app:showAsAction="never"/>
+
+        <item
+            android:id="@+id/management_members_menu"
+            android:title="@string/management_members"
+            android:contentDescription="@string/management_members"
+            app:showAsAction="never"/>
+
+        <item
+            android:id="@+id/management_visitors_menu"
+            android:title="@string/management_visitors"
+            android:contentDescription="@string/management_visitors"
+            app:showAsAction="never"/>
+
+        <item
+            android:id="@+id/management_borrow_menu"
+            android:title="@string/management_borrow_book"
+            android:contentDescription="@string/management_borrow_book"
+            app:showAsAction="never"/>
+    </group>
+</menu>

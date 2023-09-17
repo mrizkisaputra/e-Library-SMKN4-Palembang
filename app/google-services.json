@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "367764981963",
+    "project_id": "e-library-32a69",
+    "storage_bucket": "e-library-32a69.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367764981963:android:617bf3f25fcd96ef1b734e",
+        "android_client_info": {
+          "package_name": "sch.id.smkn4palembang"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFr3Rd7cIfPHkUgaUMBVSbD1ytzWoot6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

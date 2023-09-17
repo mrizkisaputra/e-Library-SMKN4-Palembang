@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/pustakawan_menu"
+        android:icon="@drawable/ic_pustakawan"
+        android:contentDescription="@string/puskatawan"
+        android:title="@string/puskatawan" />
+
+    <item
+        android:id="@+id/home_menu"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home_menu"
+        android:contentDescription="@string/home_menu"/>
+
+    <item
+        android:id="@+id/information_menu"
+        android:icon="@drawable/ic_contact"
+        android:title="@string/information_menu"
+        android:contentDescription="@string/information_menu"/>
+
+</menu>

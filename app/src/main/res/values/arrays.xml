@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="book_category">
+        <item>ilmu  sosial</item>
+        <item>ilmu terapan</item>
+        <item>ilmu agama</item>
+        <item>ilmu filsafat</item>
+        <item>ilmu bahasa</item>
+        <item>ilmu kesustaraan</item>
+        <item>ilmu komputer</item>
+        <item>ilmu murni</item>
+        <item>ilmu olahraga</item>
+        <item>ilmu kesenian</item>
+    </string-array>
+    
+    <string-array name="availability_books">
+        <item>tersedia</item>
+        <item>tidak tersedia</item>
+    </string-array>
+</resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance.ELibrary.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="android:fontFamily">@font/raleway_bold</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
+        <item name="android:textSize">35sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.ELibrary.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:fontFamily">@font/raleway_bold</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
+    </style>
+
+    <style name="TextAppearance.ELibrary.BodyMedium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:fontFamily">@font/raleway_medium</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="Widget.ELibrary.Button" parent="Widget.Material3.Button">
+        <item name="shapeAppearance">?attr/shapeAppearanceCornerSmall</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textAppearance">?attr/textAppearanceBodyMedium</item>
+    </style>
+    
+    <style name="Widget.ELibrary.CardView.Filled" parent="Widget.Material3.CardView.Filled">
+        <item name="cardElevation">4dp</item>
+        <item name="shapeAppearance">?attr/shapeAppearanceMediumComponent</item>
+        <item name="cardCornerRadius">4dp</item>
+    </style>
+</resources>

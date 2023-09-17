@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center_vertical"
+    android:background="?attr/selectableItemBackground"
+    android:padding="16dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/item_photo_imageview"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/item_name_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textSize="18sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/item_photo_imageview"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Muhammat Rizki Saputra" />
+
+    <TextView
+        android:id="@+id/item_contact_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/bg_textview_blue"
+        android:text="@string/list_contact_member"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_photo_imageview"
+        app:layout_constraintStart_toEndOf="@+id/item_photo_imageview"
+        app:layout_constraintTop_toTopOf="@+id/item_photo_imageview" />
+
+    <TextView
+        android:id="@+id/item_register_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="?attr/colorOnPrimary"
+        android:background="@drawable/bg_textview_blue"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/item_contact_textview"
+        app:layout_constraintTop_toBottomOf="@+id/item_contact_textview"
+        android:text="@string/list_registrasi_member" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
