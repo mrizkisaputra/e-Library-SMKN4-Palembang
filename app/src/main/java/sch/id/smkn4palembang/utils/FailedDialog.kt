@@ -1,4 +1,4 @@
-package sch.id.smkn4palembang.admin.utils
+package sch.id.smkn4palembang.utils
 
 import android.content.Context
 import android.view.LayoutInflater

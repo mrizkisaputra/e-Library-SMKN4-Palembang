@@ -6,10 +6,11 @@ import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import sch.id.smkn4palembang.R
-import sch.id.smkn4palembang.admin.utils.ProgressDialog
+import sch.id.smkn4palembang.utils.ProgressDialog
 import sch.id.smkn4palembang.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -25,11 +26,11 @@ class LoginActivity : AppCompatActivity() {
         progressDialog = ProgressDialog(this)
 
         auth = Firebase.auth
-        createAdminUser()
+//        createAdminUser()
 
 
         with(binding) {
-            adminLoginButton.setOnClickListener { login() }
+            adminLoginButton.setOnClickListener { createAdminUser() }
         }
     }
 
@@ -105,19 +106,37 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isComplete) {
                     val signInMethod = task.result.signInMethods
-                    if (signInMethod.isNullOrEmpty()) {
-                        // Email yang telah ditentukan belum terdaftar, jalankan untuk membuat admin user
+                    if (!signInMethod.isNullOrEmpty()) {
+                        /**
+                         * Email yang telah ditentukan belum terdaftar, jalankan untuk membuat admin user
+                         */
+                        Log.i(TAG, "Admin dengan email belum terdaftar")
                         auth.createUserWithEmailAndPassword(USERNAME_ADMIN, PASSWORD_ADMIN)
                             .addOnCompleteListener { task ->
                                 if (task.isComplete) {
+                                    val firebaseUser = task.result.user
+                                    // Sekarang, Anda dapat memperbarui profil pengguna dengan UUID kustom Anda.
+                                    val profileUpdates = UserProfileChangeRequest.Builder()
+                                        // menetapkan UUID kustom di sini
+                                        .setDisplayName("UUID_ADMIN_LOGIN")
+                                        .build()
+
+                                    firebaseUser?.updateProfile(profileUpdates)
+                                        ?.addOnCompleteListener { profileUpdateTask ->
+                                            if (profileUpdateTask.isSuccessful) {
+                                                Log.d("TESTING", "Profil pengguna diperbarui dengan UUID kustom")
+                                            } else {
+                                                Log.w("TESTING", "Gagal memperbarui profil pengguna dengan UUID kustom", profileUpdateTask.exception)
+                                            }
+                                        }
 
                                 } else {
-                                    Log.w(TAG, "create admin user:failure", task.exception)
+                                    Log.w("TESTING", "create admin user:failure", task.exception)
                                 }
-
                             }
                     } else {
                         // Email sudah terdaftar, tindakan sesuai kebutuhan Anda
+                        login()
                     }
                 } else {
                     // Error saat memeriksa email, tindakan sesuai kebutuhan Anda

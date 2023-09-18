@@ -19,10 +19,11 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import org.checkerframework.checker.units.qual.s
 import sch.id.smkn4palembang.R
-import sch.id.smkn4palembang.admin.utils.ProgressDialog
-import sch.id.smkn4palembang.admin.utils.Reference
-import sch.id.smkn4palembang.admin.utils.SuccessDialog
+import sch.id.smkn4palembang.utils.ProgressDialog
+import sch.id.smkn4palembang.utils.Reference
+import sch.id.smkn4palembang.utils.SuccessDialog
 import sch.id.smkn4palembang.databinding.ActivityAdminInsertBookBinding
+import sch.id.smkn4palembang.utils.Reference.BOOKS_COLLECTION
 import java.io.ByteArrayOutputStream
 import java.util.UUID
 
@@ -263,7 +264,7 @@ class AdminInsertBookActivity : AppCompatActivity() {
             "timestamp" to Timestamp.now()
         )
 
-        firestore.collection(BOOKS_COLLECTION)
+        firestore.collection(Reference.BOOKS_COLLECTION)
             .add(book)
             .addOnSuccessListener { documentReference ->
                 progressDialog.dismissProgressDialog()
@@ -307,7 +308,7 @@ class AdminInsertBookActivity : AppCompatActivity() {
 
     companion object {
         private val TAG: String = AdminInsertBookActivity::class.java.simpleName
-        const val BOOKS_COLLECTION: String = "books"
+
     }
 
 }

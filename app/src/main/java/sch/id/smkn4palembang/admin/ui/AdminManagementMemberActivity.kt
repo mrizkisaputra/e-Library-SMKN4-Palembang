@@ -12,10 +12,10 @@ import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import sch.id.smkn4palembang.R
 import sch.id.smkn4palembang.adapter.AdminManagementMembersAdapter
 import sch.id.smkn4palembang.adapter.AdminManagementVisitorsAdapter
-import sch.id.smkn4palembang.admin.utils.AlertDialog
-import sch.id.smkn4palembang.admin.utils.ProgressDialog
-import sch.id.smkn4palembang.admin.utils.Reference
-import sch.id.smkn4palembang.admin.utils.SuccessDialog
+import sch.id.smkn4palembang.utils.AlertDialog
+import sch.id.smkn4palembang.utils.ProgressDialog
+import sch.id.smkn4palembang.utils.Reference
+import sch.id.smkn4palembang.utils.SuccessDialog
 import sch.id.smkn4palembang.databinding.ActivityAdminManagementMemberBinding
 import sch.id.smkn4palembang.model.Member
 import sch.id.smkn4palembang.model.Visitor

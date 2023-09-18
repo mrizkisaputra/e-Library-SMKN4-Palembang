@@ -1,4 +1,4 @@
-package sch.id.smkn4palembang.admin.utils
+package sch.id.smkn4palembang.utils
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -63,7 +63,10 @@ class AlertDialog(private val activity: AppCompatActivity) {
             }
 
             // menangani button klik
-            deleteDataButton.setOnClickListener { onButtonClickListener?.onButtonDeleteClick() }
+            deleteDataButton.setOnClickListener {
+                onButtonClickListener?.onButtonDeleteClick()
+                alertDialog.dismiss()
+            }
             updateDataButton.setOnClickListener { onButtonClickListener?.onButtonUpdateClick() }
         }
 

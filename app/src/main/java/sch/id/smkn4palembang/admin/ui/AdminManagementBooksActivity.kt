@@ -3,25 +3,31 @@ package sch.id.smkn4palembang.admin.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import sch.id.smkn4palembang.R
 import sch.id.smkn4palembang.adapter.AdminManagementBooksAdapter
-import sch.id.smkn4palembang.admin.utils.AlertDialog
-import sch.id.smkn4palembang.admin.utils.ProgressDialog
+import sch.id.smkn4palembang.utils.AlertDialog
+import sch.id.smkn4palembang.utils.ProgressDialog
 import sch.id.smkn4palembang.databinding.ActivityAdminManagementBooksBinding
 import sch.id.smkn4palembang.model.Book
+import sch.id.smkn4palembang.utils.Reference
 
 class AdminManagementBooksActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityAdminManagementBooksBinding
     private lateinit var progressDialog: ProgressDialog
     private lateinit var alertDialog: AlertDialog
 
     private val firestore = Firebase.firestore
+    private val firebaseStorage = Firebase.storage
+
     private val listBook: ArrayList<Book> = ArrayList()
     private lateinit var adminManagementBooksAdapter: AdminManagementBooksAdapter
 
@@ -48,17 +54,66 @@ class AdminManagementBooksActivity : AppCompatActivity() {
         }
     }
 
-    private fun onItemBookClick(book: Book) {
+    private fun onItemBookClick(book: Book, position: Int) {
         alertDialog.createAlertDialog(book)
-
         alertDialog.setOnButtonClickListener(
             {
-                // disini tempat menangani delete item
+                /**
+                 * disini tempat menangani delete item
+                 */
+                deleteItemBook(book, position) {
+
+                }
             },
             {
-                // disini tempat menangani update item
+                /**
+                 * disini tempat menangani update item
+                 */
+                Toast.makeText(this, "Update", Toast.LENGTH_SHORT).show()
             }
         )
+    }
+
+    private fun deleteItemBook(book: Book, position: Int, callback: (String) -> Unit) {
+        val documentID = listBook[position].documentID
+
+        // mendapatkan url image sebelum data di firestore dihapus
+        val imageURL = listBook[position].cover
+
+        progressDialog.showProgressDialog()
+        if (documentID != null) {
+            firestore.collection(Reference.BOOKS_COLLECTION)
+                .document(documentID)
+                .delete()
+                .addOnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        Toast.makeText(this, "Gagal Menghapus Data", Toast.LENGTH_SHORT).show()
+                        progressDialog.dismissProgressDialog()
+                    } else {
+
+                        /**
+                         * menghapus file gambar di firebase storage
+                         */
+                        if (!imageURL.isNullOrEmpty()) {
+                            val storageRef = firebaseStorage.getReferenceFromUrl(imageURL)
+                            storageRef.delete()
+                                .addOnSuccessListener {
+                                    Log.i(TAG, "delete imageURL: Success")
+                                }
+                                .addOnFailureListener {
+                                    Log.i(TAG, "delete imageURL: ${it.message}")
+                                }
+                        }
+                        progressDialog.dismissProgressDialog()
+                        Toast.makeText(
+                            this,
+                            "Data ${book.title} berhasil di hapus",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        getBooks()
+                    }
+                }
+        }
     }
 
     /**
@@ -84,7 +139,7 @@ class AdminManagementBooksActivity : AppCompatActivity() {
     private fun getBooks() {
         progressDialog.showProgressDialog()
 
-        firestore.collection(AdminInsertBookActivity.BOOKS_COLLECTION)
+        firestore.collection(Reference.BOOKS_COLLECTION)
             .orderBy("timestamp", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
@@ -102,9 +157,8 @@ class AdminManagementBooksActivity : AppCompatActivity() {
                     val book = Book(
                         cover = cover, title = title,
                         isbn = isbn, category = category,
-                        stock = stock, availability = availability
+                        stock = stock, availability = availability, documentID = document.id
                     )
-
                     listBook.add(book)
                 }
 
@@ -125,7 +179,7 @@ class AdminManagementBooksActivity : AppCompatActivity() {
     private fun searchBooks(keyword: String) {
         showProgressBar(true)
         firestore
-            .collection(AdminInsertBookActivity.BOOKS_COLLECTION)
+            .collection(Reference.BOOKS_COLLECTION)
             .orderBy("title")
             .startAt(keyword)
             .endAt(keyword + "\uf8ff")

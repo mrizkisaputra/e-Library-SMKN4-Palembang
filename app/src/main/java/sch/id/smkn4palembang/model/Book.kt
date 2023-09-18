@@ -1,6 +1,7 @@
 package sch.id.smkn4palembang.model
 
 data class Book(
+    val documentID: String? = null,
     val cover: String? = null,
     val title: String? = null,
     val publisher: String? = null,

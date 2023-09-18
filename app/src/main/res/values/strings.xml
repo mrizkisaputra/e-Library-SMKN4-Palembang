@@ -59,8 +59,10 @@
     <string name="borrow_book">Meminjam</string>
     <string name="logout">Keluar</string>
     <string name="failure_info_login_admin">username / password tidak terdaftar, coba lagi</string>
+    <string name="failure_info_login_member">ID Anggota / password tidak terdaftar</string>
     <string name="success_info_login_admin">status login</string>
     <string name="logout_message">yakin ingin keluar dari admin panel?</string>
+    <string name="logout_message_member">yakin ingin keluar dari area anggota?</string>
 
     <string name="insert_book">Tambah Buku</string>
     <string name="cover_book">sampul buku</string>
@@ -123,4 +125,6 @@
     <string name="list_id_member">ID : %s</string>
     <string name="id_is_registered">ID %s sudah terdaftar</string>
 
+    <string name="information_member_login">Masukkan ID anggota serta kata sandi yang diberikan oleh pustakawan. Jika anda anggota perpustakaan namun belum memiliki kata sandi, hubungi staf pustakawan</string>
+    <string name="id_member_login">ID anggota</string>
 </resources>

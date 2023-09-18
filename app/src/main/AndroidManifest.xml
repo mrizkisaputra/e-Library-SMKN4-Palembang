@@ -15,6 +15,14 @@
         android:theme="@style/Theme.ELibrary"
         tools:targetApi="31">
         <activity
+            android:name=".member.ui.HomeMemberActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ELibrary" />
+        <activity
+            android:name=".member.ui.MemberLoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.ELibrary" />
+        <activity
             android:name=".admin.ui.AdminManagementMemberActivity"
             android:exported="false"
             android:theme="@style/Theme.ELibrary" />

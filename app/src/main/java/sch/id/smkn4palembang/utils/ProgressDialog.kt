@@ -1,4 +1,4 @@
-package sch.id.smkn4palembang.admin.utils
+package sch.id.smkn4palembang.utils
 
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity

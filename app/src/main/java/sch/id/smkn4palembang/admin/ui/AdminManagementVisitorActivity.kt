@@ -13,8 +13,8 @@ import com.google.firebase.ktx.Firebase
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import sch.id.smkn4palembang.adapter.AdminManagementBooksAdapter
 import sch.id.smkn4palembang.adapter.AdminManagementVisitorsAdapter
-import sch.id.smkn4palembang.admin.utils.ProgressDialog
-import sch.id.smkn4palembang.admin.utils.Reference
+import sch.id.smkn4palembang.utils.ProgressDialog
+import sch.id.smkn4palembang.utils.Reference
 import sch.id.smkn4palembang.databinding.ActivityAdminManagementVisitorsBinding
 import sch.id.smkn4palembang.model.Book
 import sch.id.smkn4palembang.model.Visitor

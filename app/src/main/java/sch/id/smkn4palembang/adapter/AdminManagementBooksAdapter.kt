@@ -19,13 +19,13 @@ class AdminManagementBooksAdapter(val context: Context) : RecyclerView.Adapter<A
     }
 
     interface OnItemClickListener {
-        fun onItemClick(book: Book)
+        fun onItemClick(book: Book, position: Int)
     }
 
-    fun setOnItemClickListener(listener: (Book) -> Unit) {
+    fun setOnItemClickListener(listener: (Book, Int) -> Unit) {
         this.onItemClickListener = object : OnItemClickListener {
-            override fun onItemClick(book: Book) {
-                listener(book)
+            override fun onItemClick(book: Book, position: Int) {
+                listener(book, position)
             }
         }
     }
@@ -62,7 +62,7 @@ class AdminManagementBooksAdapter(val context: Context) : RecyclerView.Adapter<A
     override fun onBindViewHolder(holder: AdminManagementBooksViewHolder, position: Int) {
         val book: Book = listBook[position]
         holder.bind(book)
-        holder.itemView.setOnClickListener { onItemClickListener?.onItemClick(book) }
+        holder.itemView.setOnClickListener { onItemClickListener?.onItemClick(book, position) }
     }
 
 

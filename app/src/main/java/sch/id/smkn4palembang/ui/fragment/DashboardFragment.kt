@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import sch.id.smkn4palembang.R
 import sch.id.smkn4palembang.databinding.FragmentDashboardBinding
+import sch.id.smkn4palembang.member.ui.MemberLoginActivity
 import sch.id.smkn4palembang.ui.EbookMenuActivity
 import sch.id.smkn4palembang.ui.OpacActivity
 
@@ -95,10 +96,7 @@ class DashboardFragment : Fragment() {
             videoProfileCardview.setOnClickListener(::onClick)
 
             membersAreaButton.setOnClickListener {
-                AlertDialog.Builder(requireActivity()).apply {
-                    setMessage("Masih dalam tahap Pengembangan !!!")
-                    setCancelable(true)
-                }.create().show()
+                Intent(requireActivity(), MemberLoginActivity::class.java).apply { startActivity(this) }
             }
         }
     }
