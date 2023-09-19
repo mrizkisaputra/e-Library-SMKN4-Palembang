@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/print_today_visitor_menu"
+        android:title="@string/print_visitor_today"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/print_all_visitor_menu"
+        android:title="@string/print_all_visitor"
+        app:showAsAction="never" />
+</menu>

@@ -1,6 +1,9 @@
 package sch.id.smkn4palembang.admin.ui
 
+import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -8,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import sch.id.smkn4palembang.R
 import sch.id.smkn4palembang.adapter.AdminManagementMembersAdapter
@@ -27,6 +31,11 @@ class AdminManagementMemberActivity : AppCompatActivity() {
     private lateinit var adminManagementMemberAdapter: AdminManagementMembersAdapter
     private val listMembers = ArrayList<Member>()
     private val firestore = Firebase.firestore
+    private val firebaseStorage = Firebase.storage
+
+    companion object {
+        private val TAG = AdminManagementMemberActivity::class.java.simpleName
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,26 +48,84 @@ class AdminManagementMemberActivity : AppCompatActivity() {
         initRecyclerview()
         getMembers()
 
-        adminManagementMemberAdapter.setOnItemClickListener { item ->
-            alertDialog.createAlertDialog(item)
-
-            alertDialog.setOnButtonClickListener(
-                {
-                    // delete member
-                },
-                {
-                    // update member
-                }
-            )
-        }
+        adminManagementMemberAdapter.setOnItemClickListener(::onItemMemberClick)
 
         binding.apply {
-            searchView.editText.setOnEditorActionListener { textView, i, keyEvent ->
-                //lakukan pencarian data disini
-                true
-            }
+
         }
 
+    }
+
+    private fun onItemMemberClick(member: Member, position: Int) {
+        alertDialog.createAlertDialog(member)
+
+        alertDialog.setOnButtonClickListener(
+            {
+                /**
+                 * Delete Anggota
+                 */
+
+                val builder = androidx.appcompat.app.AlertDialog.Builder(this).apply {
+                    setMessage(getString(R.string.confirm_delete_data, member.id))
+                    setNegativeButton("Tidak") { dialog, _ -> dialog?.dismiss() }
+                    setPositiveButton("Yakin") {_, _ ->
+                        deleteMember(member, position) {photoURL ->
+                            val storageRef =firebaseStorage.getReferenceFromUrl(photoURL)
+                            storageRef.delete()
+                        }
+                    }
+                }.create()
+                builder.show()
+            },
+            {
+                /**
+                 * Ubah Data Anggota
+                 */
+            }
+        )
+    }
+
+    private fun deleteMember(member: Member, position: Int, deletePhoto: (String) -> Unit) {
+        progressDialog.showProgressDialog()
+
+        // mengambil id document berdasarkan posisi data di klik untuk mengahapus data anggota
+        val documentID = listMembers[position].documentID
+
+        // sebelum data di firestore dihapus kita ambil dulu url photo
+        val photoURL = listMembers[position].photo
+
+        // jika tidak null
+        documentID?.let { document ->
+            firestore
+                .collection(Reference.MEMBERS_COLLECTION)
+                .document(document)
+                .delete()
+                .addOnCompleteListener { task ->
+                    if (!task.isComplete) {
+                        progressDialog.dismissProgressDialog()
+                        Toast.makeText(
+                            this,
+                            "Anggota ${member.name} Gagal dihapus",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        if (!photoURL.isNullOrEmpty()) {
+                            deletePhoto(photoURL)
+                        }
+
+                        progressDialog.dismissProgressDialog()
+                        Toast.makeText(
+                            this,
+                            "Anggota ${member.name} Berhasil dihapus",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        getMembers()
+                    }
+                }
+
+        }.run {
+            Log.e(TAG, "documentID: NULL", )
+        }
     }
 
     private fun initRecyclerview() {
@@ -86,6 +153,8 @@ class AdminManagementMemberActivity : AppCompatActivity() {
                 listMembers.clear()
 
                 if (!result.isEmpty) {
+                    binding.memberIsEmptyImageview.visibility = View.GONE
+
                     // mengambil semua dokumen
                     for (document in result) {
                         val photo = document.getString("photo")
@@ -97,7 +166,7 @@ class AdminManagementMemberActivity : AppCompatActivity() {
 
                         val member = Member(
                             photo = photo, name = name, id = id, contact = contact,
-                            password = password, dateTime = dateTime
+                            password = password, dateTime = dateTime, documentID = document.id
                         )
                         listMembers.add(member)
                     }
@@ -107,7 +176,10 @@ class AdminManagementMemberActivity : AppCompatActivity() {
                     adminManagementMemberAdapter.notifyDataSetChanged()
                     progressDialog.dismissProgressDialog()
                 } else {
-                    Toast.makeText(this, "Tidak Ada Data Anggota, Database Kosong", Toast.LENGTH_LONG).show()
+                    adminManagementMemberAdapter.notifyDataSetChanged()
+
+                    binding.memberIsEmptyImageview.visibility = View.VISIBLE
+//                    Toast.makeText(this, "Tidak Ada Data Anggota, Database Kosong", Toast.LENGTH_LONG).show()
                 }
 
                 progressDialog.dismissProgressDialog()

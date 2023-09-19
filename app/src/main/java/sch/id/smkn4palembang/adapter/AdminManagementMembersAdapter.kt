@@ -22,13 +22,13 @@ class AdminManagementMembersAdapter(val context: Context)
     }
 
     interface OnItemClickListener {
-        fun onItemClick(item: Member)
+        fun onItemClick(item: Member, position: Int)
     }
 
-    fun setOnItemClickListener(member: (Member) -> Unit) {
+    fun setOnItemClickListener(member: (Member, Int) -> Unit) {
         this.onItemClickListener = object : OnItemClickListener {
-            override fun onItemClick(item: Member) {
-                member(item)
+            override fun onItemClick(item: Member, position: Int) {
+                member(item, position)
             }
         }
     }
@@ -43,7 +43,11 @@ class AdminManagementMembersAdapter(val context: Context)
                     .placeholder(R.drawable.ic_avatar)
                     .into(itemPhotoImageview)
                 itemNameTextview.text = item.name
-                itemContactTextview.text = context.getString(R.string.list_contact_member, item.contact)
+                if (!item.contact.isNullOrEmpty()) {
+                    itemContactTextview.text = context.getString(R.string.list_contact_member, item.contact)
+                } else {
+                    itemContactTextview.text = context.getString(R.string.list_contact_member, "-")
+                }
                 itemRegisterTextview.text = context.getString(R.string.list_registrasi_member, item.dateTime)
             }
         }
@@ -63,6 +67,6 @@ class AdminManagementMembersAdapter(val context: Context)
         val member = listMembers[position]
         holder.bind(member)
 
-        holder.itemView.setOnClickListener { onItemClickListener?.onItemClick(member) }
+        holder.itemView.setOnClickListener { onItemClickListener?.onItemClick(member, position) }
     }
 }

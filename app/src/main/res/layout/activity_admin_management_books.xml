@@ -11,7 +11,7 @@
         <com.google.android.material.search.SearchBar
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             style="@style/Widget.Material3.SearchBar.Outlined"
             android:hint="cari buku dengan keywoard spesifik"/>
     </com.google.android.material.appbar.AppBarLayout>
@@ -75,7 +75,7 @@
         <ImageView
             android:id="@+id/search_not_found_imageview"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="100dp"
             android:src="@drawable/ic_search_not_found"
             android:visibility="gone"
             android:layout_centerVertical="true"

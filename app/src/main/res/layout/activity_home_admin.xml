@@ -166,7 +166,7 @@
                         android:layout_marginTop="8dp"
                         android:gravity="center"
                         android:maxLines="1"
-                        android:text="@string/visitors"
+                        android:text="@string/visitor"
                         android:textAllCaps="true"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
                         android:textSize="16sp"

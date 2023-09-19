@@ -79,10 +79,14 @@ class AdminInsertMemberActivity : AppCompatActivity() {
                 else
                     memberNameTextInputLayout.error = null
 
-                if (id.isEmpty())
+                if (id.isEmpty()) {
                     idMemberTextInputLayout.error = getString(R.string.is_not_empty)
-                else
+                } else {
                     idMemberTextInputLayout.error = null
+                    if (id.length <= 8) {
+                        idMemberTextInputLayout.error = "panjang id minimal 8"
+                    }
+                }
             }
         }
     }

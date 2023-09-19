@@ -61,9 +61,7 @@ class AdminManagementBooksActivity : AppCompatActivity() {
                 /**
                  * disini tempat menangani delete item
                  */
-                deleteItemBook(book, position) {
-
-                }
+                deleteBook(book, position)
             },
             {
                 /**
@@ -74,7 +72,7 @@ class AdminManagementBooksActivity : AppCompatActivity() {
         )
     }
 
-    private fun deleteItemBook(book: Book, position: Int, callback: (String) -> Unit) {
+    private fun deleteBook(book: Book, position: Int) {
         val documentID = listBook[position].documentID
 
         // mendapatkan url image sebelum data di firestore dihapus
@@ -107,7 +105,7 @@ class AdminManagementBooksActivity : AppCompatActivity() {
                         progressDialog.dismissProgressDialog()
                         Toast.makeText(
                             this,
-                            "Data ${book.title} berhasil di hapus",
+                            "Buku ${book.title} berhasil di hapus",
                             Toast.LENGTH_SHORT
                         ).show()
                         getBooks()

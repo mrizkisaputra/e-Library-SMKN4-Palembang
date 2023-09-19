@@ -11,21 +11,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
-
-        <com.google.android.material.search.SearchBar
-            android:id="@+id/search_bar"
+        <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.Material3.SearchBar.Outlined"
-            android:hint="@string/search_member_library"/>
-
+            android:layout_height="?attr/actionBarSize"
+            app:title="Daftar Anggota"
+            android:elevation="0dp"
+            app:menu="@menu/admin_option_menu_member"/>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.search.SearchView
-        android:id="@+id/search_view"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_anchor="@id/search_bar"/>
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/member_is_empty_imageview"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            tools:visibility="visible"
+            android:visibility="gone"
+            android:src="@drawable/ic_search_not_found"/>
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"

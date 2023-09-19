@@ -55,7 +55,7 @@
     <string name="management_borrow_book">Kelola Peminjaman</string>
     <string name="books">Buku</string>
     <string name="members">Anggota</string>
-    <string name="visitors">Pengunjung</string>
+    <string name="list_visitors">Daftar Pengunjung</string>
     <string name="borrow_book">Meminjam</string>
     <string name="logout">Keluar</string>
     <string name="failure_info_login_admin">username / password tidak terdaftar, coba lagi</string>
@@ -127,4 +127,14 @@
 
     <string name="information_member_login">Masukkan ID anggota serta kata sandi yang diberikan oleh pustakawan. Jika anda anggota perpustakaan namun belum memiliki kata sandi, hubungi staf pustakawan</string>
     <string name="id_member_login">ID anggota</string>
+
+    <string name="tab_title_all">All</string>
+    <string name="tab_title_students_visitor">Siswa</string>
+    <string name="tab_title_teachers_visitor">Guru</string>
+    <string name="tab_title_7day">7 Hari Lalu</string>
+    <string name="print_visitor_today">Rekap Data Pengunjung Hari Ini</string>
+    <string name="print_all_visitor">Rekap Data Semua Pengunjung</string>
+    <string name="visitor">Pengunjung</string>
+
+    <string name="confirm_delete_data">Yakin ingin menghapus data %s</string>
 </resources>
