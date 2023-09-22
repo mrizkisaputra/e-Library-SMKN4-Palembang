@@ -1,9 +1,6 @@
 <resources>
     <string name="app_name">e-Library</string>
 
-    <string name="lorem" translatable="false">s simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</string>
-
-    <string name="qrcode_menu">Scan Book</string>
     <string name="home_menu">Home</string>
     <string name="information_menu">Information</string>
 
@@ -20,7 +17,6 @@
     <string name="web_school">Web Sekolah</string>
     <string name="opac">Opac</string>
     <string name="library_video_profile">Video Profil</string>
-    <string name="member_register">Daftar Menjadi Anggota</string>
     <string name="information">Informasi</string>
     <string name="jam_operational">Jam Operasional</string>
     <string name="senin_jum_at">Senin - Jum\'at</string>
@@ -42,10 +38,6 @@
     <string name="username_is_not_empty">username tidak boleh kosong</string>
     <string name="password_is_not_empty">password tidak boleh kosong</string>
     <string name="title_activity_home">HomeActivity</string>
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
     <string name="admin_panel">Admin Panel</string>
     <string name="announcement">Pengumuman</string>
@@ -65,7 +57,6 @@
     <string name="logout_message_member">yakin ingin keluar dari area anggota?</string>
 
     <string name="insert_book">Tambah Buku</string>
-    <string name="cover_book">sampul buku</string>
     <string name="title_book">judul buku</string>
     <string name="book_publisher">penerbit buku</string>
     <string name="isbn_number">nomor ISBN</string>
@@ -108,33 +99,35 @@
     <string name="close">OK</string>
 
     <string name="item_isbn">ISBN : %s</string>
-    <string name="item_category">KATEGORI : %s</string>
+    <string name="item_category">Kategori : %s</string>
     <string name="item_stock">stok %s</string>
-    <string name="item_title">JUDUL : %s</string>
+    <string name="item_title">Judul : %s</string>
     <string name="puskatawan">Pustakawan</string>
     <string name="members_area">Area Anggota</string>
     <string name="pustakawan_name">Nama\t\t: -</string>
     <string name="pustakawan_position">Posisi\t: -</string>
     <string name="pustakawan_email">Email\t\t: -</string>
     <string name="contact_member">nomor telpon/wa</string>
-    <string name="search_member_library">Cari anggota perpustakaan</string>
 
     <string name="list_contact_member">kontak\t\t: %s</string>
     <string name="list_registrasi_member">registrasi\t\t: %s</string>
-    <string name="list_password_member">PASSWORD : %s</string>
-    <string name="list_id_member">ID : %s</string>
+    <string name="list_password_member">Password : %s</string>
+    <string name="list_id_member">ID Anggota: %s</string>
     <string name="id_is_registered">ID %s sudah terdaftar</string>
 
     <string name="information_member_login">Masukkan ID anggota serta kata sandi yang diberikan oleh pustakawan. Jika anda anggota perpustakaan namun belum memiliki kata sandi, hubungi staf pustakawan</string>
     <string name="id_member_login">ID anggota</string>
 
-    <string name="tab_title_all">All</string>
+    <string name="tab_title_all">Semua</string>
     <string name="tab_title_students_visitor">Siswa</string>
     <string name="tab_title_teachers_visitor">Guru</string>
-    <string name="tab_title_7day">7 Hari Lalu</string>
     <string name="print_visitor_today">Rekap Data Pengunjung Hari Ini</string>
     <string name="print_all_visitor">Rekap Data Semua Pengunjung</string>
     <string name="visitor">Pengunjung</string>
 
     <string name="confirm_delete_data">Yakin ingin menghapus data %s</string>
+    <string name="admin_search_books">cari berdasarkan %s</string>
+    <string name="update_password">ubah password</string>
+    <string name="long_borrow">lama meminjam: 0 hari</string>
+    <string name="scan">scan</string>
 </resources>

@@ -10,23 +10,21 @@
     app:strokeWidth="0dp"
     android:foreground="?attr/selectableItemBackground"
     app:cardElevation="1dp"
-    style="?attr/materialCardViewOutlinedStyle"
+    style="?attr/materialCardViewElevatedStyle"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="16dp"
-        >
+        android:layout_marginBottom="16dp">
         <ImageView
             android:id="@+id/item_cover_book_imageview"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
             tools:src="@tools:sample/backgrounds/scenic" />
 
         <TextView
@@ -34,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginHorizontal="8dp"
             android:textAppearance="?attr/textAppearanceBodyMedium"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -53,6 +51,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:textAppearance="?attr/textAppearanceBodyMedium"
             android:letterSpacing="0"
+            android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@+id/item_title_book_textview"
             tools:text="ISBN: 918730383782" />
 
@@ -60,11 +59,11 @@
             android:id="@+id/item_category_book_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:layout_marginHorizontal="16dp"
             android:textAppearance="?attr/textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             android:letterSpacing="0"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_isbn_book_textview"
             tools:text="KATEGORI: Ilmu Komputer" />

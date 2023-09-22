@@ -1,6 +1,8 @@
 package sch.id.smkn4palembang.admin.ui
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
@@ -17,13 +19,15 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import org.checkerframework.checker.units.qual.s
+import com.google.zxing.integration.android.IntentIntegrator
+import com.google.zxing.integration.android.IntentResult
+import com.journeyapps.barcodescanner.CaptureActivity
 import sch.id.smkn4palembang.R
+import sch.id.smkn4palembang.databinding.ActivityAdminInsertBookBinding
 import sch.id.smkn4palembang.utils.ProgressDialog
 import sch.id.smkn4palembang.utils.Reference
-import sch.id.smkn4palembang.utils.SuccessDialog
-import sch.id.smkn4palembang.databinding.ActivityAdminInsertBookBinding
 import sch.id.smkn4palembang.utils.Reference.BOOKS_COLLECTION
+import sch.id.smkn4palembang.utils.SuccessDialog
 import java.io.ByteArrayOutputStream
 import java.util.UUID
 
@@ -69,8 +73,9 @@ class AdminInsertBookActivity : AppCompatActivity() {
                 val stockBook = stokBookEdittext.text.toString().trim()
 
                 // jika semua text field tidak kosong maka tomobol di aktifkan jika kosong dimatikan
-                saveBookButton.isEnabled = !TextUtils.isEmpty(titleBook) && !TextUtils.isEmpty(isbnBook) &&
-                        !TextUtils.isEmpty(categoryBook) && !TextUtils.isEmpty(stockBook)
+                saveBookButton.isEnabled =
+                    !TextUtils.isEmpty(titleBook) && !TextUtils.isEmpty(isbnBook) &&
+                            !TextUtils.isEmpty(categoryBook) && !TextUtils.isEmpty(stockBook)
 
                 if (stockBook.isNotEmpty()) {
                     if (stockBook.toInt() >= 1) {
@@ -122,8 +127,27 @@ class AdminInsertBookActivity : AppCompatActivity() {
                     stokBookTextInputLayout.error = null
             }
         }
+    }
 
+    private val activityResultLauncherBarcode =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            val resultScan: IntentResult? =
+                IntentIntegrator.parseActivityResult(result.resultCode, result.data)
+            if (resultScan != null) {
+                if (resultScan.contents == null) {
+                    // Pemindaian dibatalkan
+                    Toast.makeText(this, "Pemindaian dibatalkan", Toast.LENGTH_LONG).show()
+                } else {
+                    // Hasil pemindaian QR code
+                    val scannedText = resultScan.contents
+                    binding.isbnBookEdittext.setText(scannedText)
+                }
+            }
+        }
 
+    companion object {
+        private val TAG: String = AdminInsertBookActivity::class.java.simpleName
+        private const val CAMERA_PERMISSION_CODE = 101
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -137,7 +161,7 @@ class AdminInsertBookActivity : AppCompatActivity() {
         with(binding) {
             topAppbar.setNavigationOnClickListener { finish() }
             takeImageButton.setOnClickListener { takePicture() }
-            scanIsbnButton.setOnClickListener {  }
+            scanIsbnButton.setOnClickListener { }
 
             titleBookEdittext.addTextChangedListener(textWatcher)
             isbnBookEdittext.addTextChangedListener(textWatcher)
@@ -150,7 +174,21 @@ class AdminInsertBookActivity : AppCompatActivity() {
             stokBookEdittext.onFocusChangeListener = onFocusListener
 
             saveBookButton.setOnClickListener { uploadDataBook() }
+
+            scanIsbnButton.setOnClickListener {
+                // Inisialisasi IntentIntegrator
+                val integrator = IntentIntegrator(this@AdminInsertBookActivity)
+                integrator.setPrompt("Pindai BARCODE ISBN Buku") // Pesan yang ditampilkan saat memindai
+                integrator.setBeepEnabled(true) // Aktifkan suara
+                integrator.captureActivity =
+                    CaptureActivity::class.java // Atur orientasi pemindaian
+                integrator.setCameraId(0)
+                integrator.setBarcodeImageEnabled(true)
+
+                activityResultLauncherBarcode.launch(integrator.createScanIntent())
+            }
         }
+
     }
 
     /**
@@ -167,7 +205,7 @@ class AdminInsertBookActivity : AppCompatActivity() {
         val bookDescription = binding.descriptionBookEdittext.text.toString().trim()
 
         // untuk memastikan bahwa yang diinput sesui dengan stok
-        var bookAvailability: String = if (bookStok.toInt() >= 1) {
+        val bookAvailability: String = if (bookStok.toInt() >= 1) {
             "tersedia"
         } else {
             "tidak tersedia"
@@ -181,9 +219,15 @@ class AdminInsertBookActivity : AppCompatActivity() {
                 if (imageUrl != null) {
                     // lakukan disini untuk menambahkan data buku serta gambar sampul buku di database
                     insertToDatabase(
-                        imageUrl = imageUrl, bookTitle = bookTitle, bookPublisher = bookPublisher,
-                        numberISBN = numberISBN, bookLanguage = bookLanguage, bookCategory = bookCategory,
-                        bookStock = bookStok, bookAvailability = bookAvailability, bookDescription = bookDescription
+                        imageUrl = imageUrl,
+                        bookTitle = bookTitle,
+                        bookPublisher = bookPublisher,
+                        numberISBN = numberISBN,
+                        bookLanguage = bookLanguage,
+                        bookCategory = bookCategory,
+                        bookStock = bookStok,
+                        bookAvailability = bookAvailability,
+                        bookDescription = bookDescription
                     )
                 } else {
                     // kalau null
@@ -194,9 +238,14 @@ class AdminInsertBookActivity : AppCompatActivity() {
 
             // lakukan disini hanya untuk menambahkan data buku didatabase
             insertToDatabase(
-                bookTitle = bookTitle, bookPublisher = bookPublisher,
-                numberISBN = numberISBN, bookLanguage = bookLanguage, bookCategory = bookCategory,
-                bookStock = bookStok, bookAvailability = bookAvailability, bookDescription = bookDescription
+                bookTitle = bookTitle,
+                bookPublisher = bookPublisher,
+                numberISBN = numberISBN,
+                bookLanguage = bookLanguage,
+                bookCategory = bookCategory,
+                bookStock = bookStok,
+                bookAvailability = bookAvailability,
+                bookDescription = bookDescription
             )
         }
 
@@ -211,7 +260,7 @@ class AdminInsertBookActivity : AppCompatActivity() {
         val imagesBooksRef = firebaseStorage
             .getReference(Reference.IMAGES_ROOT_REF)
             .child(Reference.BOOKS_CHILD_REF)
-            .child(Reference.FILE_NAME_REF)
+            .child("IMG${UUID.randomUUID()}.jpeg")
 
         // logic upload photo
         binding.bookCoverImageview.isDrawingCacheEnabled = true
@@ -235,7 +284,7 @@ class AdminInsertBookActivity : AppCompatActivity() {
                 taskSnapshot.storage.downloadUrl.addOnSuccessListener { uri ->
                     val imageUrl = uri.toString()
                     callback(imageUrl)
-                }.addOnFailureListener {exception ->
+                }.addOnFailureListener { exception ->
                     callback(null)
                     Log.e(TAG, "Gagal mendapatkan URL Photo: ${exception.message}")
                 }
@@ -264,7 +313,7 @@ class AdminInsertBookActivity : AppCompatActivity() {
             "timestamp" to Timestamp.now()
         )
 
-        firestore.collection(Reference.BOOKS_COLLECTION)
+        firestore.collection(BOOKS_COLLECTION)
             .add(book)
             .addOnSuccessListener { documentReference ->
                 progressDialog.dismissProgressDialog()
@@ -302,13 +351,43 @@ class AdminInsertBookActivity : AppCompatActivity() {
     }
 
     private fun takePicture() {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        activityResultLauncher.launch(intent)
+        // periksa apakah izin kamera sudah diberikan
+        val permissionResult =
+            checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+        if (permissionResult) {
+            // izin kamera sudah diberikan
+            launchCamera()
+        } else {
+            // izin kamera belum diberikan, minta izin kepada pengguna
+            requestPermissions(arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_CODE)
+        }
     }
 
-    companion object {
-        private val TAG: String = AdminInsertBookActivity::class.java.simpleName
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // izin kamera diberikan oleh pengguna
+                launchCamera()
+            } else {
+                // izin di tolak oleh pengguna, berikan
+                Toast.makeText(
+                    this,
+                    "Izin Kamera Di tolak, Aktifkan Permission di Pengaturan Aplikasi",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    private fun launchCamera() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        activityResultLauncher.launch(intent)
     }
 
 }

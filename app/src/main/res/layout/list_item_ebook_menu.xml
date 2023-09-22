@@ -39,13 +39,13 @@
             tools:text="@string/e_book" />
 
         <TextView
-            android:id="@+id/ebook_subtitle_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="12dp"
             android:textAppearance="?attr/textAppearanceBodyMedium"
             android:textSize="16sp"
+            android:id="@+id/ebookSubtitleTextview"
             app:layout_constraintBottom_toBottomOf="@+id/ebook_imageview"
             app:layout_constraintStart_toEndOf="@+id/ebook_imageview"
             app:layout_constraintTop_toTopOf="@+id/ebook_imageview"

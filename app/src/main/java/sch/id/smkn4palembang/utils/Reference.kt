@@ -1,6 +1,5 @@
 package sch.id.smkn4palembang.utils
 
-import java.util.UUID
 
 
 /**
@@ -14,7 +13,7 @@ object Reference {
 
     const val VISITOR_COLLECTION: String = "visitors"
     const val MEMBERS_COLLECTION = "members"
+    const val BORROWING_COLLECTION = "borrowing"
     const val BOOKS_COLLECTION: String = "books"
 
-    val FILE_NAME_REF: String = "IMG${UUID.randomUUID()}.jpeg"
 }

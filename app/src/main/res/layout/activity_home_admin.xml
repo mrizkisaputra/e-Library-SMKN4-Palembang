@@ -11,12 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="1dp">
+
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/top_app_bar"
+            android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/admin_panel"
-            app:menu="@menu/options_menu_admin"/>
+            app:menu="@menu/admin_option_menu"
+            app:title="@string/admin_panel" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,23 +32,23 @@
             android:id="@+id/row_menu1_linearlayout"
             android:layout_width="280dp"
             android:layout_height="130dp"
-            android:orientation="horizontal"
             android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <!--            menu baris 1 kolom 1-->
             <com.google.android.material.card.MaterialCardView
-                android:foreground="?attr/selectableItemBackground"
-                style="?attr/materialCardViewOutlinedStyle"
-                android:elevation="4dp"
-                app:cardCornerRadius="4dp"
                 android:id="@+id/books_cardview"
+                style="?attr/materialCardViewOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="8dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:elevation="4dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="4dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -83,13 +84,13 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/members_cardview"
                 style="?attr/materialCardViewOutlinedStyle"
-                android:elevation="4dp"
-                app:cardCornerRadius="4dp"
-                android:foreground="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:elevation="4dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="4dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -127,8 +128,8 @@
             android:id="@+id/row_menu2_linearlayout"
             android:layout_width="280dp"
             android:layout_height="130dp"
-            android:orientation="horizontal"
             android:layout_marginTop="8dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline">
@@ -137,13 +138,13 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/visitors_cardview"
                 style="?attr/materialCardViewOutlinedStyle"
-                android:elevation="4dp"
-                app:cardCornerRadius="4dp"
-                android:foreground="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="8dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:elevation="4dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="4dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -179,13 +180,13 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/borrow_book_cardview"
                 style="?attr/materialCardViewOutlinedStyle"
-                android:elevation="4dp"
-                app:cardCornerRadius="4dp"
-                android:foreground="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:elevation="4dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="4dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -228,12 +229,12 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/logout_cardview"
                 style="?attr/materialCardViewOutlinedStyle"
-                android:elevation="4dp"
-                app:cardCornerRadius="4dp"
-                android:foreground="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="8dp">
+                android:layout_marginEnd="8dp"
+                android:elevation="4dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="4dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -274,7 +275,7 @@
             app:layout_constraintGuide_begin="227dp" />
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/info_login_coordinator_layout"
+            android:id="@+id/infoLoginCoordinatorLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"

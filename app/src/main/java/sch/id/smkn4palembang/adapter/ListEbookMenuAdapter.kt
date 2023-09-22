@@ -1,7 +1,6 @@
 package sch.id.smkn4palembang.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,7 +44,8 @@ class ListEbookMenuAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EbookMenuViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_ebook_menu, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.list_item_ebook_menu, parent, false)
         return EbookMenuViewHolder(view)
     }
 

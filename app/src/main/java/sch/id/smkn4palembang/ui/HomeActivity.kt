@@ -1,6 +1,5 @@
 package sch.id.smkn4palembang.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -21,6 +20,10 @@ class HomeActivity : AppCompatActivity() {
     private var doubleBackToExitPressedOnce = false
     private val fragmentManager: FragmentManager = supportFragmentManager
 
+    companion object {
+        private val TAG = HomeActivity::class.java.simpleName
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -28,8 +31,7 @@ class HomeActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.selectedItemId = R.id.home_menu
         replaceFragment(DashboardFragment())
-        binding.bottomNavigationView.setOnItemSelectedListener { OnItemSelectedListener(it) }
-
+        binding.bottomNavigationView.setOnItemSelectedListener { onItemSelectedListener(it) }
 
 
     }
@@ -47,12 +49,12 @@ class HomeActivity : AppCompatActivity() {
         }
         doubleBackToExitPressedOnce = true
         Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
-        Handler(Looper.getMainLooper()).postDelayed(Runnable {
+        Handler(Looper.getMainLooper()).postDelayed({
             doubleBackToExitPressedOnce = false
         }, 2000)
     }
 
-    private fun OnItemSelectedListener(menuItem: MenuItem): Boolean {
+    private fun onItemSelectedListener(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.home_menu -> {
                 replaceFragment(DashboardFragment())
@@ -76,17 +78,29 @@ class HomeActivity : AppCompatActivity() {
     private fun replaceFragment(fragment: Fragment) {
         fragmentManager.beginTransaction().apply {
             if (fragment is DashboardFragment) {
-                replace(R.id.container_framelayout, fragment, DashboardFragment::class.java.simpleName)
+                replace(
+                    R.id.container_framelayout,
+                    fragment,
+                    DashboardFragment::class.java.simpleName
+                )
                 commit()
             }
 
             if (fragment is InformationFragment) {
-                replace(R.id.container_framelayout, fragment, InformationFragment::class.java.simpleName)
+                replace(
+                    R.id.container_framelayout,
+                    fragment,
+                    InformationFragment::class.java.simpleName
+                )
                 commit()
             }
 
             if (fragment is LibrarianFragment) {
-                replace(R.id.container_framelayout, fragment, LibrarianFragment::class.java.simpleName)
+                replace(
+                    R.id.container_framelayout,
+                    fragment,
+                    LibrarianFragment::class.java.simpleName
+                )
                 commit()
             }
         }

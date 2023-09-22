@@ -9,6 +9,13 @@
         android:contentDescription="@string/announcement"
         android:title="@string/announcement" />
 
+    <item
+        android:id="@+id/update_password_admin_menu"
+        android:icon="@drawable/ic_person"
+        app:showAsAction="ifRoom"
+        android:contentDescription="@string/update_password"
+        android:title="@string/update_password" />
+
     <group android:menuCategory="container">
         <item
             android:id="@+id/management_books_menu"

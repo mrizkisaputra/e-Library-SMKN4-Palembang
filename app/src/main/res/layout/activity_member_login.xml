@@ -57,7 +57,7 @@
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/id_member_text_input_edittext"
+                    android:id="@+id/idMemberTextInputEdittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="1"
@@ -75,7 +75,7 @@
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/password_member_text_input_edittext"
+                    android:id="@+id/passwordMemberTextInputEdittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="1"
@@ -84,8 +84,8 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/memberLoginButton"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:id="@+id/member_login_button"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="32dp"
@@ -97,7 +97,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/info_login_coordinator_layout"
+        android:id="@+id/infoLoginCoordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

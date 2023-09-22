@@ -1,9 +1,7 @@
 package sch.id.smkn4palembang.utils
 
 import android.app.Activity
-import android.content.Context
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import sch.id.smkn4palembang.R
 
 class ProgressDialog(private val activity: Activity) {

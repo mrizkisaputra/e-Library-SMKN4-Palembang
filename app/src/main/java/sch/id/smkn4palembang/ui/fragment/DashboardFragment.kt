@@ -1,6 +1,5 @@
 package sch.id.smkn4palembang.ui.fragment
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -36,7 +35,10 @@ class DashboardFragment : Fragment() {
             }
 
             R.id.ebook_carview -> {
-                Intent(requireActivity(), EbookMenuActivity::class.java).apply { startActivity(this) }
+                Intent(
+                    requireActivity(),
+                    EbookMenuActivity::class.java
+                ).apply { startActivity(this) }
             }
 
             R.id.literacy_cardview -> {
@@ -60,7 +62,8 @@ class DashboardFragment : Fragment() {
             }
 
             R.id.web_school_cardview -> {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.smkn4palembang.sch.id"))
+                val intent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse("https://www.smkn4palembang.sch.id"))
                 startActivity(intent)
             }
 
@@ -68,7 +71,7 @@ class DashboardFragment : Fragment() {
                 Intent(requireActivity(), OpacActivity::class.java).apply { startActivity(this) }
             }
 
-            R.id.video_profile_cardview -> {  }
+            R.id.video_profile_cardview -> {}
         }
     }
 
@@ -96,7 +99,11 @@ class DashboardFragment : Fragment() {
             videoProfileCardview.setOnClickListener(::onClick)
 
             membersAreaButton.setOnClickListener {
-                Intent(requireActivity(), MemberLoginActivity::class.java).apply { startActivity(this) }
+                Intent(requireActivity(), MemberLoginActivity::class.java).apply {
+                    startActivity(
+                        this
+                    )
+                }
             }
         }
     }

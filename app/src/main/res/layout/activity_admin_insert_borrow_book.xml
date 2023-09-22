@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="Tambah Peminjaman" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appbar_layout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!--            data peminjaman buku-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="data peminjam buku"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse"
+                android:textSize="18sp" />
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Material3.CardView.Outlined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="2dp"
+                app:strokeWidth="0.6dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/name_text_input_layout"
+                        style="?attr/textInputFilledDenseStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="nama peminjam"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/nameEdittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:textAppearance="?attr/textAppearanceBodyMedium" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/id_text_input_layout"
+                        style="?attr/textInputFilledDenseStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/name_text_input_layout"
+                        android:layout_marginTop="8dp"
+                        android:hint="nomor induk"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/idEdittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberSigned"
+                            android:textAppearance="?attr/textAppearanceBodyMedium" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="?attr/textInputFilledDenseStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/id_text_input_layout"
+                        android:layout_marginTop="8dp"
+                        android:hint="kontak yang bisa dihubungi"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/contactEdittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberSigned"
+                            android:textAppearance="?attr/textAppearanceBodyMedium" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!--            data buku yang dipinjam-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="data buku yang dipinjam"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse"
+                android:textSize="18sp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:strokeWidth="0.6dp"
+                app:cardCornerRadius="2dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/title_book_text_input_layout"
+                        style="?attr/textInputFilledDenseStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="judul buku"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/titleBookEdittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:textAppearance="?attr/textAppearanceBodyMedium" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:id="@+id/isbn_book_linearlayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/title_book_text_input_layout">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/isbn_book_text_input_layout"
+                            style="?attr/textInputFilledDenseStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="12dp"
+                            android:layout_weight="1"
+                            android:hint="isbn buku"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/isbnBookEdittext"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="numberSigned"
+                                android:textAppearance="?attr/textAppearanceBodyMedium" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/scan_isbn_button"
+                            style="@style/Widget.Material3.Button.IconButton.Filled"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_weight="2"
+                            android:text="@string/scan"
+                            app:icon="@drawable/ic_qrcode"
+                            app:shapeAppearance="?attr/shapeAppearanceCornerSmall" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/condition_book"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/isbn_book_linearlayout"
+                        android:layout_marginTop="8dp"
+                        android:text="kondisi buku saat ini"
+                        android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+                    <RadioGroup
+                        android:id="@+id/codition_book_radiogroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/condition_book"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/very_good_radiobutton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="sangat baik"
+                            android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+                        <RadioButton
+                            android:id="@+id/normal_radiobutton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="normal"
+                            android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+                        <RadioButton
+                            android:id="@+id/damaged_radiobutton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="rusak"
+                            android:textAppearance="?attr/textAppearanceBodyMedium" />
+                    </RadioGroup>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/borrow_date_text_input_layout"
+                        style="?attr/textInputFilledDenseStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/codition_book_radiogroup"
+                        android:layout_marginTop="8dp"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/borrowDateEdittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:hint="tanggal peminjaman"
+                            android:inputType="none"
+                            android:textAppearance="?attr/textAppearanceBodyMedium" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/date_return_text_input_layout"
+                        style="?attr/textInputFilledDenseStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/borrow_date_text_input_layout"
+                        android:layout_marginTop="8dp"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/dateReturnEdittext"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:hint="tanggal pengembalian"
+                            android:inputType="none"
+                            android:textAppearance="?attr/textAppearanceBodyMedium" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/longBorrowOfDayTextview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:textStyle="bold"
+                        android:layout_below="@id/date_return_text_input_layout"
+                        android:layout_marginTop="8dp"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:background="@drawable/bg_textview_blue"
+                        android:text="@string/long_borrow"
+                        android:textAppearance="?attr/textAppearanceBodyMedium" />
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/saveBorrowingBookButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="32dp"
+                android:enabled="false"
+                android:text="@string/save"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:icon="@drawable/ic_save" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

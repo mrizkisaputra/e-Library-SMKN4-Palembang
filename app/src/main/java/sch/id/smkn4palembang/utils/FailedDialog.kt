@@ -1,10 +1,8 @@
 package sch.id.smkn4palembang.utils
 
-import android.content.Context
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import org.checkerframework.checker.units.qual.A
 import sch.id.smkn4palembang.databinding.DialogFailedBinding
 
 class FailedDialog(private val activity: AppCompatActivity) {

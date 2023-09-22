@@ -1,21 +1,16 @@
 package sch.id.smkn4palembang.member.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
-import android.view.View
 import android.view.View.OnFocusChangeListener
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import sch.id.smkn4palembang.R
-import sch.id.smkn4palembang.admin.ui.LoginActivity
 import sch.id.smkn4palembang.databinding.ActivityMemberLoginBinding
 import sch.id.smkn4palembang.utils.ProgressDialog
 
@@ -24,6 +19,10 @@ class MemberLoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMemberLoginBinding
     private lateinit var progressDialog: ProgressDialog
     private val auth = Firebase.auth
+
+    companion object {
+    }
+
     /**
      * mengintai textfield, jika tidak kosong aktifkan button login
      */
@@ -48,7 +47,7 @@ class MemberLoginActivity : AppCompatActivity() {
             binding.apply {
                 memberLoginButton.isEnabled =
                     !TextUtils.isEmpty(idMemberTextInputEdittext.text) &&
-                        !TextUtils.isEmpty(passwordMemberTextInputEdittext.text)
+                            !TextUtils.isEmpty(passwordMemberTextInputEdittext.text)
             }
         }
 
@@ -86,14 +85,6 @@ class MemberLoginActivity : AppCompatActivity() {
         binding.memberLoginButton.setOnClickListener { memberSignIn() }
     }
 
-    override fun onStart() {
-        super.onStart()
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            updateUI(currentUser)
-        }
-    }
-
     /**
      * @desc fungsi untuk menangani anggota login
      */
@@ -108,8 +99,6 @@ class MemberLoginActivity : AppCompatActivity() {
                 if (task.isSuccessful && task.result != null) {
                     if (task.result.user != null) {
                         progressDialog.dismissProgressDialog()
-                        val user = auth.currentUser
-                        updateUI(user)
                     } else {
                         Log.i("MemberLoginActivity", "login: GAGAL")
                     }
@@ -124,13 +113,6 @@ class MemberLoginActivity : AppCompatActivity() {
                     snackbar.show()
                 }
             }
-    }
-
-    private fun updateUI(user: FirebaseUser?) {
-        Intent(this, HomeMemberActivity::class.java).apply {
-//            putExtra(HomeMemberActivity.MEMBER_LOGIN_EXTRA, user)
-            startActivity(this)
-        }
     }
 
 

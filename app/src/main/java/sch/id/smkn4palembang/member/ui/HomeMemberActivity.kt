@@ -4,13 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.accessibility.AccessibilityEventCompat.setAction
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import sch.id.smkn4palembang.R
@@ -28,10 +22,9 @@ class HomeMemberActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.searchBar.setOnMenuItemClickListener(::onItemMenuClick)
-
-//        val memberAuth = intent.get
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
         finishAffinity()
@@ -50,15 +43,14 @@ class HomeMemberActivity : AppCompatActivity() {
             setMessage(getString(R.string.logout_message_member))
             setPositiveButton(getString(R.string.logout)) { _, _ ->
                 auth.signOut()
-                Intent(this@HomeMemberActivity, MainActivity::class.java).apply { startActivity(this) }
+                Intent(
+                    this@HomeMemberActivity,
+                    MainActivity::class.java
+                ).apply { startActivity(this) }
                 finish()
             }
-            setNegativeButton("Tidak") { dialog, _ ->  dialog.dismiss() }
+            setNegativeButton("Tidak") { dialog, _ -> dialog.dismiss() }
         }.create().show()
-    }
-
-    companion object {
-        const val MEMBER_LOGIN_EXTRA = "member login extra"
     }
 
 }

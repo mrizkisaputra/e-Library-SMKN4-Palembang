@@ -1,7 +1,8 @@
 package sch.id.smkn4palembang.admin.ui
 
-import android.R.attr.button
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
@@ -18,15 +19,14 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import sch.id.smkn4palembang.R
+import sch.id.smkn4palembang.databinding.ActivityAdminInsertVisitorBinding
 import sch.id.smkn4palembang.utils.ProgressDialog
 import sch.id.smkn4palembang.utils.Reference
 import sch.id.smkn4palembang.utils.SuccessDialog
-import sch.id.smkn4palembang.databinding.ActivityAdminInsertVisitorBinding
 import java.io.ByteArrayOutputStream
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -53,6 +53,11 @@ class AdminInsertVisitorActivity : AppCompatActivity() {
             }
 
         }
+
+    companion object {
+        private val TAG = AdminInsertVisitorActivity::class.java.simpleName
+        private const val CAMERA_PERMISSION_CODE = 101
+    }
 
     /**
      *  untuk mengintai edittext saat user menginputkan text
@@ -131,7 +136,7 @@ class AdminInsertVisitorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAdminInsertVisitorBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        
+
         progressDialog = ProgressDialog(this)
         successDialog = SuccessDialog(this)
 
@@ -153,7 +158,6 @@ class AdminInsertVisitorActivity : AppCompatActivity() {
     /**
      * @desc fungsi untuk mengupload data visitor ke firestore database
      */
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun uploadDataVisitor() {
         binding.apply {
             val visitorName = visitorNameEdittext.text.toString().trim()
@@ -165,7 +169,9 @@ class AdminInsertVisitorActivity : AppCompatActivity() {
                 visitorRole = when (roleVisitorRadiogroup.checkedRadioButtonId) {
                     R.id.student_visitor_radiobutton -> getString(R.string.student)
                     R.id.teacher_visitor_radiobutton -> getString(R.string.teacher)
-                    else -> { "tidak ada role" }
+                    else -> {
+                        "tidak ada role"
+                    }
                 }
             }
 
@@ -188,7 +194,11 @@ class AdminInsertVisitorActivity : AppCompatActivity() {
                 progressDialog.showProgressDialog()
 
                 // jika tidak ada photo, tambahkan data visitor didalam firestore database
-                insertToDatabse(visitorName = visitorName, visitorId = visitorId, visitorRole = visitorRole)
+                insertToDatabse(
+                    visitorName = visitorName,
+                    visitorId = visitorId,
+                    visitorRole = visitorRole
+                )
             }
 
         }
@@ -202,7 +212,7 @@ class AdminInsertVisitorActivity : AppCompatActivity() {
         val imageVisitorRef = firebaseStorage
             .getReference(Reference.IMAGES_ROOT_REF)
             .child(Reference.VISITOR_CHILD_REF)
-            .child(Reference.FILE_NAME_REF)
+            .child("IMG${UUID.randomUUID()}.jpeg")
 
         binding.visitorPictureImageview.isDrawingCacheEnabled = true
         binding.visitorPictureImageview.buildDrawingCache()
@@ -211,7 +221,7 @@ class AdminInsertVisitorActivity : AppCompatActivity() {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val data = baos.toByteArray()
 
-        var uploadTask = imageVisitorRef.putBytes(data)
+        val uploadTask = imageVisitorRef.putBytes(data)
         uploadTask.addOnFailureListener {
             // Handle unsuccessful uploads
             Toast.makeText(
@@ -227,7 +237,7 @@ class AdminInsertVisitorActivity : AppCompatActivity() {
                     val imageUrl = uri.toString()
                     callback(imageUrl)
                     Log.i(TAG, "IMAGE URL: $imageUrl")
-                }.addOnFailureListener {exception ->
+                }.addOnFailureListener { exception ->
                     callback(null)
                     Log.e(TAG, "Gagal mendapatkan URL Photo: ${exception.message}")
                 }
@@ -238,11 +248,12 @@ class AdminInsertVisitorActivity : AppCompatActivity() {
     /**
      * @desc fungsi untuk menambahkan data visitor di firestore database
      */
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun insertToDatabse(imageUrl: String = "",
-                                visitorName: String,
-                                visitorId: String,
-                                visitorRole: String) {
+    private fun insertToDatabse(
+        imageUrl: String = "",
+        visitorName: String,
+        visitorId: String,
+        visitorRole: String
+    ) {
         val dateTime = LocalDateTime
             .now(ZoneId.of("Asia/Jakarta"))
             .format(DateTimeFormatter.ofPattern("d/MM/yyyy H:mm"))
@@ -258,7 +269,7 @@ class AdminInsertVisitorActivity : AppCompatActivity() {
         )
 
         // membuat collection dan menambahkan dokumen
-        firestore.collection(VISITORS_COLLECTION)
+        firestore.collection(Reference.VISITOR_COLLECTION)
             .add(visitor)
             .addOnSuccessListener { documentReference ->
                 progressDialog.dismissProgressDialog()
@@ -285,13 +296,41 @@ class AdminInsertVisitorActivity : AppCompatActivity() {
     }
 
     private fun takePicture() {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        activityResultLauncher.launch(intent)
+        val resultPermissions =
+            checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+
+        if (resultPermissions) {
+            // izin kamera belum diberikan oleh pengguna
+            requestPermissions(arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_CODE)
+        } else {
+            // izin kamera sudah diberikan
+            launchCamera()
+        }
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-    companion object {
-        private val TAG = AdminInsertVisitorActivity::class.java.simpleName
-        private const val VISITORS_COLLECTION = "visitors"
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+            if (permissions.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                launchCamera()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Izin Kamera Di tolak, Aktifkan Permission di Pengaturan Aplikasi",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    private fun launchCamera() {
+        // Membuka kamera untuk mengambil foto
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        activityResultLauncher.launch(intent)
     }
 }

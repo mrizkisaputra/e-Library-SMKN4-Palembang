@@ -1,19 +1,16 @@
 package sch.id.smkn4palembang.adapter
 
 import android.content.Context
-import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import sch.id.smkn4palembang.R
 import sch.id.smkn4palembang.databinding.ListItemAdminManagementMembersBinding
-import sch.id.smkn4palembang.databinding.ListItemAdminManagementVisitorsBinding
 import sch.id.smkn4palembang.model.Member
-import sch.id.smkn4palembang.model.Visitor
 
-class AdminManagementMembersAdapter(val context: Context)
-    : RecyclerView.Adapter<AdminManagementMembersAdapter.AdminManagementMembersViewHolder>() {
+class AdminManagementMembersAdapter(val context: Context) :
+    RecyclerView.Adapter<AdminManagementMembersAdapter.AdminManagementMembersViewHolder>() {
     private var listMembers = ArrayList<Member>()
     private var onItemClickListener: OnItemClickListener? = null
 
@@ -33,22 +30,23 @@ class AdminManagementMembersAdapter(val context: Context)
         }
     }
 
-    inner class AdminManagementMembersViewHolder(private val binding: ListItemAdminManagementMembersBinding)
-        : RecyclerView.ViewHolder(binding.root) {
-
+    inner class AdminManagementMembersViewHolder(private val binding: ListItemAdminManagementMembersBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Member) {
             binding.apply {
                 Glide.with(context)
                     .load(item.photo)
-                    .placeholder(R.drawable.ic_avatar)
+                    .placeholder(R.drawable.default_image_avatar_placeholder)
                     .into(itemPhotoImageview)
                 itemNameTextview.text = item.name
                 if (!item.contact.isNullOrEmpty()) {
-                    itemContactTextview.text = context.getString(R.string.list_contact_member, item.contact)
+                    itemContactTextview.text =
+                        context.getString(R.string.list_contact_member, item.contact)
                 } else {
                     itemContactTextview.text = context.getString(R.string.list_contact_member, "-")
                 }
-                itemRegisterTextview.text = context.getString(R.string.list_registrasi_member, item.dateTime)
+                itemRegisterTextview.text =
+                    context.getString(R.string.list_registrasi_member, item.dateTime)
             }
         }
     }
@@ -57,7 +55,11 @@ class AdminManagementMembersAdapter(val context: Context)
         parent: ViewGroup,
         viewType: Int
     ): AdminManagementMembersViewHolder {
-        val binding = ListItemAdminManagementMembersBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ListItemAdminManagementMembersBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return AdminManagementMembersViewHolder(binding)
     }
 

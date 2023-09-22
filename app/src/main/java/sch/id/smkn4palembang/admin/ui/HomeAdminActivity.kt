@@ -10,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import sch.id.smkn4palembang.R
+import sch.id.smkn4palembang.admin.ui.fragment.AdminDialogFragment
 import sch.id.smkn4palembang.databinding.ActivityHomeAdminBinding
 import sch.id.smkn4palembang.ui.MainActivity
 
@@ -51,12 +52,18 @@ class HomeAdminActivity : AppCompatActivity() {
             }
 
             R.id.management_members_menu -> {
-                Intent(this, AdminManagementMemberActivity::class.java).apply { startActivity(this) }
+                Intent(
+                    this,
+                    AdminManagementMemberActivity::class.java
+                ).apply { startActivity(this) }
                 true
             }
 
             R.id.management_visitors_menu -> {
-                Intent(this, AdminManagementVisitorActivity::class.java).apply { startActivity(this) }
+                Intent(
+                    this,
+                    AdminManagementVisitorActivity::class.java
+                ).apply { startActivity(this) }
                 true
             }
 
@@ -68,6 +75,20 @@ class HomeAdminActivity : AppCompatActivity() {
                 true
             }
 
+            R.id.update_password_admin_menu -> {
+                // Membuat instance dari AdminDialogFragment
+                val adminDialogFragment = AdminDialogFragment()
+
+                // Menggunakan FragmentManager untuk menampilkan dialog
+                val fragmentManager = supportFragmentManager
+                adminDialogFragment.show(
+                    fragmentManager,
+                    AdminDialogFragment::class.java.simpleName
+                )
+
+                true
+            }
+
             else -> false
         }
     }
@@ -75,18 +96,20 @@ class HomeAdminActivity : AppCompatActivity() {
     private fun onClick(view: View) {
         when (view.id) {
             R.id.books_cardview -> {
-                Intent(this, AdminInsertBookActivity::class.java).apply { startActivity(this) }
+                startActivity(Intent(this, AdminInsertBookActivity::class.java))
             }
 
             R.id.members_cardview -> {
-                Intent(this, AdminInsertMemberActivity::class.java).apply { startActivity(this) }
+                startActivity(Intent(this, AdminInsertMemberActivity::class.java))
             }
 
             R.id.visitors_cardview -> {
-                Intent(this, AdminInsertVisitorActivity::class.java).apply { startActivity(this) }
+                startActivity(Intent(this, AdminInsertVisitorActivity::class.java))
             }
 
-            R.id.borrow_book_cardview -> {  }
+            R.id.borrow_book_cardview -> {
+                startActivity(Intent(this, AdminInsertBorrowBookActivity::class.java))
+            }
 
             R.id.logout_cardview -> logOut()
         }
@@ -97,10 +120,13 @@ class HomeAdminActivity : AppCompatActivity() {
             setMessage(getString(R.string.logout_message))
             setPositiveButton(getString(R.string.logout)) { _, _ ->
                 Firebase.auth.signOut()
-                Intent(this@HomeAdminActivity, MainActivity::class.java).apply { startActivity(this) }
+                Intent(
+                    this@HomeAdminActivity,
+                    MainActivity::class.java
+                ).apply { startActivity(this) }
                 finish()
             }
-            setNegativeButton("Tidak") { dialog, _ ->  dialog.dismiss() }
+            setNegativeButton("Tidak") { dialog, _ -> dialog.dismiss() }
         }.create().show()
     }
 

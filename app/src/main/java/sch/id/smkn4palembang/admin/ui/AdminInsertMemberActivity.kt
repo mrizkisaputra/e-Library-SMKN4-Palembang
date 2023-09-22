@@ -1,7 +1,9 @@
 package sch.id.smkn4palembang.admin.ui
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
@@ -19,23 +21,20 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.Timestamp
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import sch.id.smkn4palembang.R
+import sch.id.smkn4palembang.databinding.ActivityAdminInsertMemberBinding
 import sch.id.smkn4palembang.utils.FailedDialog
 import sch.id.smkn4palembang.utils.ProgressDialog
 import sch.id.smkn4palembang.utils.Reference
-import sch.id.smkn4palembang.utils.Reference.MEMBERS_COLLECTION
 import sch.id.smkn4palembang.utils.SuccessDialog
-import sch.id.smkn4palembang.databinding.ActivityAdminInsertMemberBinding
 import java.io.ByteArrayOutputStream
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.util.UUID
 
 class AdminInsertMemberActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAdminInsertMemberBinding
@@ -45,7 +44,11 @@ class AdminInsertMemberActivity : AppCompatActivity() {
 
     private val firebaseStorage = Firebase.storage
     private val firestore = Firebase.firestore
-    private val auth = Firebase.auth
+
+    companion object {
+        private val TAG = AdminInsertMemberActivity::class.java.simpleName
+        private const val CAMERA_PERMISSION_CODE = 101
+    }
 
     private val textWatcher = object : TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -99,7 +102,8 @@ class AdminInsertMemberActivity : AppCompatActivity() {
             binding.idMemberEdittext.clearFocus()
 
             // menghilangkan keyboard
-            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(binding.idMemberEdittext.windowToken, 0)
             true
         } else {
@@ -107,7 +111,6 @@ class AdminInsertMemberActivity : AppCompatActivity() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAdminInsertMemberBinding.inflate(layoutInflater)
@@ -132,7 +135,6 @@ class AdminInsertMemberActivity : AppCompatActivity() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun uploadDataMembers() {
         val memberName = binding.memberNameEdittext.text.toString().trim()
         val memberContact = binding.contactMemberEdittext.text.toString().trim()
@@ -160,12 +162,14 @@ class AdminInsertMemberActivity : AppCompatActivity() {
                     progressDialog.showProgressDialog()
                     uploadMemberPhoto { imageUrl ->
                         if (imageUrl != null) {
+                            Log.d(TAG, "upload gambar member berhasil: $imageUrl")
+
                             insertToDatabase(
                                 photo = imageUrl, name = memberName, contact = memberContact,
                                 id = memberId, password = memberPassword
                             )
                         } else {
-
+                            Log.d(TAG, "upload gambar member gagal: $imageUrl")
                         }
                     }
                 } else {
@@ -204,9 +208,9 @@ class AdminInsertMemberActivity : AppCompatActivity() {
             }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun insertToDatabase(photo: String = "", name: String,
-                                 contact: String, id: String, password: String
+    private fun insertToDatabase(
+        photo: String = "", name: String,
+        contact: String, id: String, password: String
     ) {
         val dateTime = LocalDateTime.now(ZoneId.of("Asia/Jakarta"))
             .format(DateTimeFormatter.ofPattern("d/MM/yyyy H:mm"))
@@ -224,16 +228,6 @@ class AdminInsertMemberActivity : AppCompatActivity() {
             .add(member)
             .addOnSuccessListener { documentReference ->
                 progressDialog.dismissProgressDialog()
-
-                // menambahkan user ke authentication untuk login di area anggota
-                auth.createUserWithEmailAndPassword("$id@gmail.com", password)
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            Log.d("TES", "createUserWithEmail:success")
-                        } else {
-                            Log.w("TES", "createUserWithEmail:failure", task.exception)
-                        }
-                    }
 
                 /**
                  * mengirimkan callback oncloselistener saat button ok di klik
@@ -267,7 +261,7 @@ class AdminInsertMemberActivity : AppCompatActivity() {
         val imagesBooksRef = firebaseStorage
             .getReference(Reference.IMAGES_ROOT_REF)
             .child(Reference.MEMBER_CHILD_REF)
-            .child(Reference.FILE_NAME_REF)
+            .child("IMG${UUID.randomUUID()}.jpeg")
 
         // logic upload photo
         binding.memberPictureImageview.isDrawingCacheEnabled = true
@@ -291,21 +285,55 @@ class AdminInsertMemberActivity : AppCompatActivity() {
                 taskSnapshot.storage.downloadUrl.addOnSuccessListener { uri ->
                     val imageUrl = uri.toString()
                     callback(imageUrl)
-                }.addOnFailureListener {exception ->
+                }.addOnFailureListener { exception ->
                     callback(null)
                 }
             }
         }
     }
 
-    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == RESULT_OK && result.data != null) {
-            val captureImage = result.data?.extras?.get("data") as Bitmap
-            binding.memberPictureImageview.setImageBitmap(captureImage)
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK && result.data != null) {
+                val captureImage = result.data?.extras?.get("data") as Bitmap
+                binding.memberPictureImageview.setImageBitmap(captureImage)
+            }
         }
 
-    }
     private fun takePicture() {
+        val resultPermissions =
+            checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+
+        if (resultPermissions) {
+            // izin kamera belum diberikan oleh pengguna
+            requestPermissions(arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_CODE)
+        } else {
+            // izin kamera sudah diberikan
+            launchCamera()
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+            if (permissions.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                launchCamera()
+            } else {
+                Toast.makeText(
+                    this,
+                    "izin kamera ditolak, aktifkan permission di pengaturan aplikasi",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    private fun launchCamera() {
         // Membuka kamera untuk mengambil foto
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         launcher.launch(intent)

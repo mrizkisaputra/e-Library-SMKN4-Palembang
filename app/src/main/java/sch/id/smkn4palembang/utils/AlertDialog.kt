@@ -1,11 +1,8 @@
 package sch.id.smkn4palembang.utils
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.play.integrity.internal.c
 import sch.id.smkn4palembang.R
 import sch.id.smkn4palembang.databinding.DialogAlertBinding
 import sch.id.smkn4palembang.model.Book
@@ -50,15 +47,19 @@ class AlertDialog(private val activity: AppCompatActivity) {
                 // jika pesan yang dikirim merupakan instance objek Book
                 // dilakukan down casting secara otomatis ke real objek Book
                 is Book -> {
-                    itemMessage1Textview.text = activity.getString(R.string.item_title, message.title)
+                    itemMessage1Textview.text =
+                        activity.getString(R.string.item_title, message.title)
                     itemMessage2Textview.text = activity.getString(R.string.item_isbn, message.isbn)
-                    itemMessage3Textview.text = activity.getString(R.string.item_category, message.category)
+                    itemMessage3Textview.text =
+                        activity.getString(R.string.item_category, message.category)
                 }
 
                 is Member -> {
                     itemMessage1Textview.text = message.name
-                    itemMessage2Textview.text = activity.getString(R.string.list_id_member, message.id)
-                    itemMessage3Textview.text = activity.getString(R.string.list_password_member, message.password)
+                    itemMessage2Textview.text =
+                        activity.getString(R.string.list_id_member, message.id)
+                    itemMessage3Textview.text =
+                        activity.getString(R.string.list_password_member, message.password)
                 }
             }
 

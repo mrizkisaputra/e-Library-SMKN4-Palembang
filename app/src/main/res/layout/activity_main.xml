@@ -47,7 +47,6 @@
 
     <TextView
         android:textAppearance="?attr/textAppearanceBodyMedium"
-        android:id="@+id/subtitle2_textview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -58,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/subtitle1_textview" />
 
     <Button
-        android:id="@+id/admin_login_button"
+        android:id="@+id/adminLoginButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="@string/admin_login"

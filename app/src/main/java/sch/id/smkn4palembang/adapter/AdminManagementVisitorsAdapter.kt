@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import sch.id.smkn4palembang.R
-import sch.id.smkn4palembang.databinding.GridItemAdminManagementBooksBinding
 import sch.id.smkn4palembang.databinding.ListItemAdminManagementVisitorsBinding
-import sch.id.smkn4palembang.model.Book
 import sch.id.smkn4palembang.model.Visitor
 
 class AdminManagementVisitorsAdapter(val context: Context) :
@@ -21,14 +19,14 @@ class AdminManagementVisitorsAdapter(val context: Context) :
         this.listVisitors = listVisitors
     }
 
-    inner class AdminManagementVisitorViewHolder(private val binding: ListItemAdminManagementVisitorsBinding)
-        : RecyclerView.ViewHolder(binding.root) {
+    inner class AdminManagementVisitorViewHolder(private val binding: ListItemAdminManagementVisitorsBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(visitor: Visitor) {
             binding.apply {
                 Glide.with(context)
                     .load(visitor.photo)
-                    .placeholder(R.drawable.ic_avatar)
+                    .placeholder(R.drawable.default_image_avatar_placeholder)
                     .into(itemPhotoImageview)
 
                 itemNameTextview.text = visitor.name
@@ -36,7 +34,8 @@ class AdminManagementVisitorsAdapter(val context: Context) :
                 itemIdTextview.text = visitor.id
                 itemVisitingTimeTextview.text = visitor.visitingTime
                 if (visitor.timetamp != null) {
-                    itemTimestampTextview.text = DateUtils.getRelativeTimeSpanString(visitor.timetamp)
+                    itemTimestampTextview.text =
+                        DateUtils.getRelativeTimeSpanString(visitor.timetamp)
                 }
             }
         }
@@ -46,7 +45,11 @@ class AdminManagementVisitorsAdapter(val context: Context) :
         parent: ViewGroup,
         viewType: Int
     ): AdminManagementVisitorViewHolder {
-        val binding = ListItemAdminManagementVisitorsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ListItemAdminManagementVisitorsBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return AdminManagementVisitorViewHolder(binding)
     }
 

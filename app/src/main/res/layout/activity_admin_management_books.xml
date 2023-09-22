@@ -8,97 +8,66 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.google.android.material.search.SearchBar
-            android:id="@+id/search_bar"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            style="@style/Widget.Material3.SearchBar.Outlined"
-            android:hint="cari buku dengan keywoard spesifik"/>
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/admin_option_menu_book"
+            app:title="Daftar Buku"/>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.search.SearchView
-        android:id="@+id/search_view"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="[Judul Buku]"
-        app:layout_anchor="@id/search_bar">
-        <!-- Search suggestions/results go here (ScrollView, RecyclerView, etc.). -->
-        <LinearLayout
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <Spinner
+            android:id="@+id/search_book_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/search_by_category_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Kategori"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginBottom="16dp"
-                android:layout_weight="1"
-                android:enabled="false"
-                style="?attr/materialButtonOutlinedStyle"/>
+            android:layout_marginHorizontal="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/search_by_isbn_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="6dp"
-                android:layout_weight="1"
-                android:text="@string/isbn_number"
-                android:layout_marginBottom="16dp"
-                android:enabled="false"
-                style="?attr/materialButtonOutlinedStyle"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingHorizontal="8dp"
+            android:paddingTop="16dp"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_book_spinner"
+            app:spanCount="2"
+            tools:listitem="@layout/grid_item_admin_management_books" />
 
-            <Button
-                android:id="@+id/search_by_language_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_weight="1"
-                android:text="Bahasa"
-                android:enabled="false"
-                android:layout_marginBottom="16dp"
-                style="?attr/materialButtonOutlinedStyle" />
-        </LinearLayout>
-    </com.google.android.material.search.SearchView>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <ImageView
-            android:id="@+id/search_not_found_imageview"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:id="@+id/search_not_found"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:src="@drawable/ic_search_not_found"
             android:visibility="gone"
-            android:layout_centerVertical="true"
-            tools:visibility="visible"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
         <ProgressBar
             android:id="@+id/progressbar"
             style="?attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            android:layout_centerInParent="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible" />
-    </RelativeLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingHorizontal="8dp"
-        tools:listitem="@layout/grid_item_admin_management_books"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        android:scrollbars="vertical"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

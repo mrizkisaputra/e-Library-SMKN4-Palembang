@@ -45,7 +45,7 @@
                         android:id="@+id/photo_pustakawan1_imageview"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:src="@drawable/ic_avatar"
+                        android:src="@drawable/default_image_avatar_placeholder"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"/>
 
@@ -71,7 +71,6 @@
                         android:textAppearance="?attr/textAppearanceBodyMedium"
                         android:layout_below="@id/name_pustakawan1_textview"/>
                     <TextView
-                        android:id="@+id/email_pustakawan_textview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/pustakawan_email"
@@ -98,7 +97,7 @@
                         android:id="@+id/photo_pustakawan2_imageview"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:src="@drawable/ic_avatar"
+                        android:src="@drawable/default_image_avatar_placeholder"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"/>
 
@@ -124,7 +123,6 @@
                         android:textAppearance="?attr/textAppearanceBodyMedium"
                         android:layout_below="@id/name_pustakawan2_textview"/>
                     <TextView
-                        android:id="@+id/email_pustakawan2_textview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/pustakawan_email"

@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <com.google.android.material.appbar.MaterialToolbar
-            app:titleTextAppearance="?attr/textAppearanceHeadlineSmall"
-            android:id="@+id/top_appbar"
+            android:id="@+id/topAppbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_arrow_back"
             app:title="@string/insert_book"
-            app:navigationIcon="@drawable/ic_arrow_back"/>
+            app:titleTextAppearance="?attr/textAppearanceHeadlineSmall" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:focusableInTouchMode="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appbar_layout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -30,18 +39,18 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/materialCardView"
+                style="?attr/materialCardViewOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
                 android:padding="16dp"
                 app:cardCornerRadius="4dp"
                 app:cardElevation="0.4dp"
-                style="?attr/materialCardViewOutlinedStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/book_cover_imageview"
+                    android:id="@+id/bookCoverImageview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true" />
@@ -72,7 +81,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/take_image_button">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/title_book_edittext"
+                    android:id="@+id/titleBookEdittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="1"
@@ -85,18 +94,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:errorEnabled="true"
                 android:hint="@string/book_publisher"
+                app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title_book_text_input_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/book_publisher_edittext"
+                    android:id="@+id/bookPublisherEdittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:ems="1"/>
+                    android:ems="1"
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -113,7 +122,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/book_publisher_text_input_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/isbn_book_edittext"
+                    android:id="@+id/isbnBookEdittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="1"
@@ -123,8 +132,9 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/scan_isbn_button"
                 style="@style/Widget.Material3.Button.IconButton.Filled"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="110dp"
+                android:layout_height="60dp"
+                android:text="@string/scan"
                 app:icon="@drawable/ic_qrcode"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/isbn_book_text_input_layout"
@@ -135,15 +145,15 @@
                 style="?attr/textInputFilledStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/book_language"
                 android:layout_marginTop="8dp"
+                android:hint="@string/book_language"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/isbn_book_text_input_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/book_language_edittext"
+                    android:id="@+id/bookLanguageEdittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="1"
@@ -156,22 +166,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:errorEnabled="true"
                 android:hint="@string/book_category"
+                app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/book_language_text_input_layout">
 
                 <AutoCompleteTextView
-                    android:id="@+id/category_book"
+                    android:id="@+id/categoryBook"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:focusable="false"
                     android:clickable="true"
+                    android:focusable="false"
+                    android:inputType="none"
                     android:overScrollMode="always"
-                    android:scrollbars="vertical"
                     android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
                     app:simpleItems="@array/book_category" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -188,7 +198,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/category_book_text_input_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/stok_book_edittext"
+                    android:id="@+id/stokBookEdittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="1"
@@ -196,28 +206,27 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/availability_book_text_input_layout"
                 style="?attr/textInputFilledExposedDropdownMenuStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
                 app:errorEnabled="true"
-                android:layout_marginStart="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/stok_book_text_input_layout"
                 app:layout_constraintTop_toBottomOf="@+id/category_book_text_input_layout">
 
                 <AutoCompleteTextView
-                    android:id="@+id/availability_book"
+                    android:id="@+id/availabilityBook"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:lines="1"
-                    android:inputType="text"
-                    android:overScrollMode="always"
-                    android:scrollbars="vertical"
-                    android:scrollbarStyle="insideInset"
                     android:hint="@string/availability_book"
-                    app:simpleItems="@array/availability_books"/>
+                    android:inputType="text"
+                    android:lines="1"
+                    android:overScrollMode="always"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
+                    app:simpleItems="@array/availability_books" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -231,28 +240,28 @@
                 app:layout_constraintTop_toBottomOf="@+id/stok_book_text_input_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/description_book_edittext"
+                    android:id="@+id/descriptionBookEdittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:lines="4"
-                    android:inputType="textMultiLine"
                     android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:lines="4"
                     android:overScrollMode="always"
-                    android:scrollbars="vertical"
-                    android:scrollbarStyle="insideInset"/>
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/save_book_button"
+                android:id="@+id/saveBookButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="@string/save_book"
-                android:enabled="false"
                 android:layout_marginTop="24dp"
-                app:icon="@drawable/ic_save"
+                android:enabled="false"
+                android:text="@string/save_book"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                app:icon="@drawable/ic_save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -261,4 +270,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

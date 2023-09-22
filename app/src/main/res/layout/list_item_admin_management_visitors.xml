@@ -33,7 +33,7 @@
         tools:text="Muhammat Rizki Saputra" />
 
     <TextView
-        android:id="@+id/item_role_textview"
+        android:id="@+id/itemRoleTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -71,7 +71,7 @@
         tools:text="16/09/2023 16:14" />
 
     <TextView
-        android:id="@+id/item_timestamp_textview"
+        android:id="@+id/itemTimestampTextview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

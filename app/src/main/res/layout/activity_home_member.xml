@@ -12,12 +12,11 @@
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:menu="@menu/option_menu_member"
+            app:menu="@menu/member_option_menu"
             android:hint="@string/searchbar_hint"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.search.SearchView
-        android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:hint="@string/searchview_hint"
@@ -61,7 +60,6 @@
 
                 <!--                menu baris1 kolom 1-->
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/social_sciences_cardview"
                     style="?attr/materialCardViewOutlinedStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -103,7 +101,6 @@
 
                 <!--                menu baris1 kolom 2-->
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/applied_science_cardview"
                     style="?attr/materialCardViewOutlinedStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -158,7 +155,6 @@
 
                 <!--                menu baris2 kolom 1-->
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/religion_sciences_cardview"
                     style="?attr/materialCardViewOutlinedStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -200,7 +196,6 @@
 
                 <!--                menu baris2 kolom 2-->
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/philosophy_science_cardview"
                     style="?attr/materialCardViewOutlinedStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -254,7 +249,6 @@
 
                 <!--                menu baris3 kolom 1-->
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/language_sciences_cardview"
                     style="?attr/materialCardViewOutlinedStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -296,7 +290,6 @@
 
                 <!--                menu baris3 kolom 2-->
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/kesustaraan_science_cardview"
                     style="?attr/materialCardViewOutlinedStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -350,7 +343,6 @@
 
                 <!--                menu baris4 kolom 1-->
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/computer_sciences_cardview"
                     style="?attr/materialCardViewOutlinedStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -392,7 +384,6 @@
 
                 <!--                menu baris4 kolom 2-->
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/pure_science_cardview"
                     style="?attr/materialCardViewOutlinedStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -435,7 +426,6 @@
 
             <!--            menu bari5-->
             <LinearLayout
-                android:id="@+id/menu_row5_linearlayout"
                 android:layout_width="310dp"
                 android:layout_height="130dp"
                 android:layout_marginTop="12dp"
@@ -446,7 +436,6 @@
 
                 <!--                menu baris5 kolom 1-->
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/sport_sciences_cardview"
                     style="?attr/materialCardViewOutlinedStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -488,7 +477,6 @@
 
                 <!--                menu baris5 kolom 2-->
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/art_science_cardview"
                     style="?attr/materialCardViewOutlinedStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
