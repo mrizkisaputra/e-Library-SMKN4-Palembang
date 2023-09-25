@@ -43,4 +43,9 @@
     </style>
 
     <style name="Theme.ELibrary" parent="Base.Theme.ELibrary" />
+
+    <style name="Theme.ELibrary.OPAC" parent="Base.Theme.ELibrary">
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+    </style>
 </resources>

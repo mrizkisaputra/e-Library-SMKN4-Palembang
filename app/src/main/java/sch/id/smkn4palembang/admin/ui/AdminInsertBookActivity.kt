@@ -63,7 +63,29 @@ class AdminInsertBookActivity : AppCompatActivity() {
     private val textWatcher = object : TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            binding.apply {
+                if (!TextUtils.isEmpty(isbnBookEdittext.text))
+                    isbnBookTextInputLayout.error = null
+                else
+                    isbnBookTextInputLayout.error = getString(R.string.is_not_empty)
+
+                if (!TextUtils.isEmpty(titleBookEdittext.text))
+                    titleBookTextInputLayout.error = null
+                else
+                    titleBookTextInputLayout.error = getString(R.string.is_not_empty)
+
+                if (!TextUtils.isEmpty(categoryBook.text))
+                    categoryBookTextInputLayout.error = null
+                else
+                    categoryBookTextInputLayout.error = getString(R.string.is_not_empty)
+
+                if (!TextUtils.isEmpty(stokBookEdittext.text))
+                    stokBookTextInputLayout.error = null
+                else
+                    stokBookTextInputLayout.error = getString(R.string.is_not_empty)
+            }
+        }
 
         override fun afterTextChanged(p0: Editable?) {
             binding.apply {

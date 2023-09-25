@@ -68,6 +68,10 @@ class HomeAdminActivity : AppCompatActivity() {
             }
 
             R.id.management_borrow_menu -> {
+                startActivity(Intent(
+                    this,
+                    AdminManagementBorrowBookActivity::class.java
+                ))
                 true
             }
 

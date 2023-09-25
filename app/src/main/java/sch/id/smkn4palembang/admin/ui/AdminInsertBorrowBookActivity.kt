@@ -17,7 +17,7 @@ import com.google.zxing.integration.android.IntentResult
 import com.journeyapps.barcodescanner.CaptureActivity
 import sch.id.smkn4palembang.R
 import sch.id.smkn4palembang.databinding.ActivityAdminInsertBorrowBookBinding
-import sch.id.smkn4palembang.model.BorrowingBook
+import sch.id.smkn4palembang.model.BookBorrowing
 import sch.id.smkn4palembang.utils.ProgressDialog
 import sch.id.smkn4palembang.utils.Reference
 import sch.id.smkn4palembang.utils.SuccessDialog
@@ -247,7 +247,7 @@ class AdminInsertBorrowBookActivity : AppCompatActivity() {
                 }
             }
 
-            val borrowingBook = BorrowingBook(
+            val borrowingBook = BookBorrowing(
                 name = name,
                 id = id,
                 contact = contact,

@@ -48,7 +48,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/delete_data_button"
-        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+        style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -60,7 +60,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/updateDataButton"
-        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+        style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

@@ -14,6 +14,7 @@ object Reference {
     const val VISITOR_COLLECTION: String = "visitors"
     const val MEMBERS_COLLECTION = "members"
     const val BORROWING_COLLECTION = "borrowing"
+    const val BORROWING_HISTORY_COLLECTION = "borrowing_history"
     const val BOOKS_COLLECTION: String = "books"
 
 }
