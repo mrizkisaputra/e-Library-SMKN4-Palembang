@@ -99,7 +99,7 @@
     <string name="close">OK</string>
 
     <string name="item_isbn">ISBN : %s</string>
-    <string name="item_category">Kategori : %s</string>
+    <string name="item_category">Kategori: %s</string>
     <string name="item_stock">stok %s</string>
     <string name="item_title">Judul : %s</string>
     <string name="puskatawan">Pustakawan</string>
@@ -121,6 +121,7 @@
     <string name="tab_title_all">Semua</string>
     <string name="tab_title_students_visitor">Siswa</string>
     <string name="tab_title_teachers_visitor">Guru</string>
+    <string name="tab_title_today_visitor">Hari Ini</string>
     <string name="print_visitor_today">Rekap Data Pengunjung Hari Ini</string>
     <string name="print_all_visitor">Rekap Data Semua Pengunjung</string>
     <string name="visitor">Pengunjung</string>

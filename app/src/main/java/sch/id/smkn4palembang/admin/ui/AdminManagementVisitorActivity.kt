@@ -5,10 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
@@ -39,6 +41,7 @@ class AdminManagementVisitorActivity : AppCompatActivity() {
         @StringRes
         private val TAB_TITLE = intArrayOf(
             R.string.tab_title_all,
+            R.string.tab_title_today_visitor,
             R.string.tab_title_students_visitor,
             R.string.tab_title_teachers_visitor
         )
@@ -128,11 +131,13 @@ class AdminManagementVisitorActivity : AppCompatActivity() {
                 startActivity(intent)
             } catch (e: ActivityNotFoundException) {
                 // Handle jika tidak ada aplikasi yang dapat membuka file Excel
-                Toast.makeText(
-                    this,
+                Snackbar.make(
+                    binding.infoCoordinator,
                     "tidak ada aplikasi yang dapat membuka file excel",
-                    Toast.LENGTH_SHORT
-                ).show()
+                    Snackbar.LENGTH_SHORT
+                )
+                    .setBackgroundTint(getColor(R.color.md_theme_light_error))
+                    .show()
             }
         } catch (e: IOException) {
             Log.e("Excel", "Error exporting data to Excel: $e")
@@ -183,11 +188,13 @@ class AdminManagementVisitorActivity : AppCompatActivity() {
                 startActivity(intent)
             } catch (e: ActivityNotFoundException) {
                 // Handle jika tidak ada aplikasi yang dapat membuka file Excel
-                Toast.makeText(
-                    this,
+                Snackbar.make(
+                    binding.infoCoordinator,
                     "tidak ada aplikasi yang dapat membuka file excel",
-                    Toast.LENGTH_SHORT
-                ).show()
+                    Snackbar.LENGTH_SHORT
+                )
+                    .setBackgroundTint(getColor(R.color.md_theme_light_error))
+                    .show()
             }
         } catch (e: IOException) {
             Log.e("Excel", "Error exporting data to Excel: $e")
@@ -205,11 +212,13 @@ class AdminManagementVisitorActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 if (result.isEmpty) {
-                    Toast.makeText(
-                        this,
-                        "data kosong, tidak bisa di export",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Snackbar.make(
+                        binding.infoCoordinator,
+                        "data kosong, tidak bisa di Export",
+                        Snackbar.LENGTH_SHORT
+                    )
+                        .setBackgroundTint(getColor(R.color.md_theme_light_error))
+                        .show()
                 } else {
                     exportAllVisitorToExcel(result)
                 }
@@ -232,11 +241,13 @@ class AdminManagementVisitorActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 if (result.isEmpty) {
-                    Toast.makeText(
-                        this,
+                    Snackbar.make(
+                        binding.infoCoordinator,
                         "data pengunjung hari ini kosong, tidak bisa di Export",
-                        Toast.LENGTH_LONG
-                    ).show()
+                        Snackbar.LENGTH_SHORT
+                    )
+                        .setBackgroundTint(getColor(R.color.md_theme_light_error))
+                        .show()
                 } else {
                     exportTodayVisitorToExcel(result)
                 }

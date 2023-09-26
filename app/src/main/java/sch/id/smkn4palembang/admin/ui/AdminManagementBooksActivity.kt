@@ -99,7 +99,7 @@ class AdminManagementBooksActivity : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrEmpty() && query.isNotBlank()) {
-                    searchBooks(query)
+                    searchBooks(query.lowercase())
                 }
                 return true
             }
@@ -262,7 +262,7 @@ class AdminManagementBooksActivity : AppCompatActivity() {
 
         val db = firestore.collection(Reference.BOOKS_COLLECTION)
         var query: Query =
-            db.orderBy("title")
+            db.orderBy("search_title")
                 .startAt(keyword)
                 .endAt(keyword + "\uf8ff")
 

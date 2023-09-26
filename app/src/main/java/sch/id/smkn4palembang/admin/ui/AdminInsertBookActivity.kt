@@ -325,10 +325,11 @@ class AdminInsertBookActivity : AppCompatActivity() {
         val book: Map<String, Any> = hashMapOf(
             "cover" to imageUrl,
             "title" to bookTitle,
+            "search_title" to bookTitle.lowercase(),
             "publisher" to bookPublisher,
             "isbn" to numberISBN,
             "language" to bookLanguage,
-            "category" to bookCategory,
+            "category" to bookCategory.lowercase(),
             "stok" to bookStock,
             "availability" to bookAvailability,
             "description" to bookDescription,

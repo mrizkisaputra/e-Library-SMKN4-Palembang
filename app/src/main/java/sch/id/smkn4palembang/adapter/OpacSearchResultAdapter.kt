@@ -10,8 +10,8 @@ import sch.id.smkn4palembang.R
 import sch.id.smkn4palembang.databinding.GridItemHorizontalOpacBinding
 import sch.id.smkn4palembang.model.Book
 
-class OpacAdapter(private val context: Context) :
-    RecyclerView.Adapter<OpacAdapter.ViewHolder>() {
+class OpacSearchResultAdapter(private val context: Context)  :
+    RecyclerView.Adapter<OpacSearchResultAdapter.ViewHolder>() {
 
     private var onItemClickListener: OnItemClickListener? = null
     private var listOpac: MutableList<Book> = mutableListOf()
@@ -49,7 +49,7 @@ class OpacAdapter(private val context: Context) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.grid_item_horizontal_opac, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.grid_item_search, parent, false)
         )
     }
 
@@ -61,5 +61,6 @@ class OpacAdapter(private val context: Context) :
 
         holder.itemView.setOnClickListener { onItemClickListener?.onClick(itemOpac, position) }
     }
+
 
 }

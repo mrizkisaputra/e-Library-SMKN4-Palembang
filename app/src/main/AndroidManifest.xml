@@ -25,8 +25,8 @@
         <activity
             android:name=".ui.DetailOpacActivity"
             android:exported="false"
-            android:label="@string/title_activity_detail_opac"
-            android:theme="@style/Theme.ELibrary" />
+            android:theme="@style/Theme.ELibrary.OPAC" />
+
         <!-- untuk berbagi file dengan aplikasi lain di atas Android 7.0. -->
         <provider
             android:name="androidx.core.content.FileProvider"
