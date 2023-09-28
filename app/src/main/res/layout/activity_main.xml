@@ -9,9 +9,9 @@
     tools:context=".ui.MainActivity">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:id="@+id/logo_imageView"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
         android:src="@drawable/logo_smkn4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,10 +28,13 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/raleway_bold"
         android:text="@string/text_title_splashscreen"
+        android:textStyle="bold"
+        android:alpha="0"
+        tools:alpha="100"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/logo_imageView" />
 
     <TextView
         android:textAppearance="?attr/textAppearanceBodyMedium"
@@ -39,6 +42,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:textSize="12sp"
+        android:alpha="0"
+        android:letterSpacing="0"
+        tools:alpha="100"
         android:text="@string/text_subtitle1_splashscreen"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,8 +55,13 @@
     <TextView
         android:textAppearance="?attr/textAppearanceBodyMedium"
         android:layout_width="0dp"
+        android:id="@+id/sub_title2_textview"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textSize="12sp"
+        android:alpha="0"
+        android:letterSpacing="0"
+        tools:alpha="100"
         android:text="@string/text_subtitle2_splashscreen"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,6 +75,8 @@
         android:text="@string/admin_login"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:alpha="0"
+        tools:alpha="100"
         android:backgroundTint="?attr/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/home_menu_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,6 +88,8 @@
         android:layout_height="70dp"
         android:text="@string/main_menu"
         android:textSize="18sp"
+        android:alpha="0"
+        tools:alpha="100"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

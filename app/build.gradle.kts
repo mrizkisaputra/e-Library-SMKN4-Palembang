@@ -42,17 +42,20 @@ android {
 
 }
 
+
 dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-
     implementation("jp.wasabeef:recyclerview-animators:4.0.2")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
     implementation("org.apache.poi:poi-ooxml:5.2.3")
+
+    implementation("com.theartofdev.edmodo:android-image-cropper:2.8.0")
+    implementation("com.google.android.gms:play-services-mlkit-text-recognition:19.0.0")
 
     // untuk scan barcode
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")

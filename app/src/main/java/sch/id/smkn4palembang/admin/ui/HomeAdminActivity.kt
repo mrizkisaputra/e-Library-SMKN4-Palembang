@@ -2,10 +2,15 @@ package sch.id.smkn4palembang.admin.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.transition.Explode
+import android.transition.Slide
+import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
+import android.view.Window
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase

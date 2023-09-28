@@ -1,8 +1,12 @@
 package sch.id.smkn4palembang.admin.ui
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +36,26 @@ class LoginActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         binding.adminLoginButton.setOnClickListener { login() }
+
+        playAnimation()
+    }
+
+    private fun playAnimation() {
+        binding.apply {
+
+            val animatorLogo =
+                ObjectAnimator.ofFloat(logoImageview, View.TRANSLATION_Y, -500f, 0f).apply {
+                    duration = 1000
+                    interpolator = DecelerateInterpolator()
+                    start()
+                }
+
+            ObjectAnimator.ofFloat(containerCardview, View.ALPHA, 1f).apply {
+                duration = 1000
+                start()
+            }
+
+        }
     }
 
     override fun onStart() {

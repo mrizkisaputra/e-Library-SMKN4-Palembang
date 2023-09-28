@@ -1,14 +1,18 @@
 package sch.id.smkn4palembang.ui
 
 import android.R
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.firebase.firestore.Query
@@ -19,7 +23,9 @@ import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import sch.id.smkn4palembang.adapter.OpacAdapter
 import sch.id.smkn4palembang.adapter.OpacSearchResultAdapter
 import sch.id.smkn4palembang.admin.ui.AdminManagementBooksActivity
+import sch.id.smkn4palembang.databinding.ActivityDetailOpacBinding
 import sch.id.smkn4palembang.databinding.ActivityOpacBinding
+import sch.id.smkn4palembang.databinding.GridItemHorizontalOpacBinding
 import sch.id.smkn4palembang.model.Book
 import sch.id.smkn4palembang.utils.ProgressDialog
 import sch.id.smkn4palembang.utils.Reference

@@ -18,53 +18,71 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/username_admin_text_input_layout"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/container_cardview"
+        style="?attr/materialCardViewFilledStyle"
+        android:alpha="0"
+        tools:alpha="100"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="0.7dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        app:errorEnabled="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo_imageview">
+        app:layout_constraintTop_toBottomOf="@+id/logo_imageview"
+        android:layout_marginTop="45dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/usernameAdminTextInputEdittext"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/username"
-            android:inputType="textEmailAddress|textAutoComplete" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:orientation="vertical">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password_admin_text_input_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:errorEnabled="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username_admin_text_input_layout"
-        app:passwordToggleEnabled="true">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+                android:id="@+id/username_admin_text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/passwordAdminTextInputEdittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/usernameAdminTextInputEdittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="email"
+                    android:inputType="textEmailAddress|textAutoComplete" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/adminLoginButton"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="34dp"
-        android:text="@string/login"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_admin_text_input_layout" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_admin_text_input_layout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/username_admin_text_input_layout"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordAdminTextInputEdittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/adminLoginButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="34dp"
+                android:text="@string/login"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password_admin_text_input_layout" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/infoLoginCoordinatorLayout"

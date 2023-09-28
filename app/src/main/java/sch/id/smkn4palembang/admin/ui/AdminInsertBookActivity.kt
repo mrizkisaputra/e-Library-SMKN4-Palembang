@@ -1,10 +1,12 @@
 package sch.id.smkn4palembang.admin.ui
 
 import android.Manifest
+import android.R.attr.data
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
@@ -19,9 +21,14 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
 import com.journeyapps.barcodescanner.CaptureActivity
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import sch.id.smkn4palembang.R
 import sch.id.smkn4palembang.databinding.ActivityAdminInsertBookBinding
 import sch.id.smkn4palembang.utils.ProgressDialog
@@ -31,11 +38,12 @@ import sch.id.smkn4palembang.utils.SuccessDialog
 import java.io.ByteArrayOutputStream
 import java.util.UUID
 
+
 class AdminInsertBookActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAdminInsertBookBinding
     private lateinit var progressDialog: ProgressDialog
     private lateinit var successDialog: SuccessDialog
-    private lateinit var captureImage: Bitmap
+    private lateinit var captureBitmap: Bitmap
 
     /**
      * instance bucket firebase storage untuk mengakses data
@@ -48,11 +56,11 @@ class AdminInsertBookActivity : AppCompatActivity() {
     private val firestore = Firebase.firestore
 
     // mengembalikan hasil tangkapan kamera
-    private val activityResultLauncher =
+    private val activityResultLauncherTakePicture =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK && result.data != null) {
-                captureImage = result.data?.extras?.get("data") as Bitmap
-                binding.bookCoverImageview.setImageBitmap(captureImage)
+                val imageBitmap = result.data?.extras?.get("data") as Bitmap
+                binding.bookCoverImageview.setImageBitmap(imageBitmap)
             }
 
         }
@@ -170,6 +178,9 @@ class AdminInsertBookActivity : AppCompatActivity() {
     companion object {
         private val TAG: String = AdminInsertBookActivity::class.java.simpleName
         private const val CAMERA_PERMISSION_CODE = 101
+
+        private const val TAKE_PICTURE_REQUEST_CODE = 10
+        private const val TAKE_CROP_PICTURE_REQUEST_CODE = 20
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -183,7 +194,6 @@ class AdminInsertBookActivity : AppCompatActivity() {
         with(binding) {
             topAppbar.setNavigationOnClickListener { finish() }
             takeImageButton.setOnClickListener { takePicture() }
-            scanIsbnButton.setOnClickListener { }
 
             titleBookEdittext.addTextChangedListener(textWatcher)
             isbnBookEdittext.addTextChangedListener(textWatcher)
@@ -209,8 +219,45 @@ class AdminInsertBookActivity : AppCompatActivity() {
 
                 activityResultLauncherBarcode.launch(integrator.createScanIntent())
             }
+
+            captureTextRecognizeButton.setOnClickListener {
+                CropImage.activity()
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setActivityTitle("Pengenalan Text")
+                    .start(this@AdminInsertBookActivity)
+            }
         }
 
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            val result = CropImage.getActivityResult(data)
+            if (resultCode == RESULT_OK) {
+                val croppedUri = result.uri
+                // Menggunakan URI hasil potongan gambar untuk melakukan text recognition
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, croppedUri)
+                getTextFromImage(bitmap)
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                val error = result.error
+                // Handle error jika terjadi kesalahan saat memotong gambar
+            }
+        }
+    }
+    private fun getTextFromImage(bitmap: Bitmap) {
+        val image = InputImage.fromBitmap(bitmap, 0)
+        val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+
+        val result = recognizer.process(image)
+            .addOnSuccessListener { visionText ->
+                binding.descriptionBookEdittext.setText(visionText.text)
+            }
+            .addOnFailureListener {
+
+            }
     }
 
     /**
@@ -410,7 +457,7 @@ class AdminInsertBookActivity : AppCompatActivity() {
 
     private fun launchCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        activityResultLauncher.launch(intent)
+        activityResultLauncherTakePicture.launch(intent)
     }
 
 }
