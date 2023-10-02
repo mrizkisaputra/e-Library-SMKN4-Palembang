@@ -259,7 +259,7 @@ class AdminManagementMemberActivity : AppCompatActivity() {
         progressDialog.showProgressDialog()
 
         firestore.collection(Reference.MEMBERS_COLLECTION)
-            .orderBy("date_time", Query.Direction.DESCENDING)
+            .orderBy("time_stamp", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
                 listMembers.clear()

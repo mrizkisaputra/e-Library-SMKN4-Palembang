@@ -68,7 +68,7 @@ class VisitorFragment : Fragment() {
         progressDialog.showProgressDialog()
 
         firestore.collection(Reference.VISITOR_COLLECTION)
-            .orderBy("visiting_time", Query.Direction.DESCENDING)
+            .orderBy("time_stamp", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
                 listVisitor.clear()

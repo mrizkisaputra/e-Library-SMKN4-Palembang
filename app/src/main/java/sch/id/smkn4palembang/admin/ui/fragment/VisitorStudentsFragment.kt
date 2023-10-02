@@ -1,6 +1,7 @@
 package sch.id.smkn4palembang.admin.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,7 +71,7 @@ class VisitorStudentsFragment : Fragment() {
 
         firestore.collection(Reference.VISITOR_COLLECTION)
             .whereEqualTo("role", "Siswa")
-            .orderBy("visiting_time", Query.Direction.DESCENDING)
+            .orderBy("time_stamp", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
                 listVisitor.clear()

@@ -315,6 +315,7 @@ class OpacActivity : AppCompatActivity() {
      * mengambil katalog koleksi terbaru
      */
     private fun getBooksNewCollection() {
+        progressDialog.showProgressDialog()
 
         val collectionRef = firestore.collection(Reference.BOOKS_COLLECTION)
         collectionRef
@@ -323,6 +324,7 @@ class OpacActivity : AppCompatActivity() {
             .addSnapshotListener { value, error ->
 
                 if (error != null) {
+                    progressDialog.dismissProgressDialog()
                     // jika error mau ngapain
                     Toast.makeText(
                         this,
@@ -358,8 +360,10 @@ class OpacActivity : AppCompatActivity() {
 
                     adapterNewCollection.setData(listCatalogNewCollection)
                     adapterNewCollection.notifyDataSetChanged()
+                    progressDialog.dismissProgressDialog()
                 } else {
                     binding.catalogEmptyImageview.visibility = View.VISIBLE
+                    progressDialog.dismissProgressDialog()
                 }
             }
     }

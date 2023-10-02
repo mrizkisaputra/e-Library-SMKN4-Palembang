@@ -12,6 +12,7 @@ import sch.id.smkn4palembang.databinding.FragmentDashboardBinding
 import sch.id.smkn4palembang.member.ui.MemberLoginActivity
 import sch.id.smkn4palembang.ui.EbookMenuActivity
 import sch.id.smkn4palembang.ui.OpacActivity
+import sch.id.smkn4palembang.ui.VideoProfileActivity
 
 class DashboardFragment : Fragment() {
     private var _binding: FragmentDashboardBinding? = null
@@ -71,7 +72,9 @@ class DashboardFragment : Fragment() {
                 Intent(requireActivity(), OpacActivity::class.java).apply { startActivity(this) }
             }
 
-            R.id.video_profile_cardview -> {}
+            R.id.video_profile_cardview -> {
+                startActivity(Intent(requireActivity(), VideoProfileActivity::class.java))
+            }
         }
     }
 

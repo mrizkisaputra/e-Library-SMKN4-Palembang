@@ -1,5 +1,7 @@
 package sch.id.smkn4palembang.model
 
+import com.google.firebase.firestore.FieldValue
+
 data class Visitor(
     val photo: String? = null,
     val name: String? = null,

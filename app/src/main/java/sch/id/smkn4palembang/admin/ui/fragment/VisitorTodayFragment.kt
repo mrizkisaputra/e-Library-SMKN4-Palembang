@@ -68,14 +68,20 @@ class VisitorTodayFragment : Fragment() {
      * @desc fungsi ini untuk mengambil data pengunjung dan menampilkan data terbaru di paling atas
      */
     private fun getVisitors() {
-        val date = Calendar.getInstance().time
-        val today = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(date)
+        val today = Calendar.getInstance()
+        today.set(Calendar.HOUR_OF_DAY, 0)
+        today.set(Calendar.MINUTE, 0)
+        today.set(Calendar.SECOND, 0)
+
+        val startOfDay = today.timeInMillis // Waktu mulai hari ini
+        val endOfDay = startOfDay + (24 * 60 * 60 * 1000) // Waktu akhir hari ini (24 jam setelah waktu mulai)
 
         progressDialog.showProgressDialog()
 
         firestore.collection(Reference.VISITOR_COLLECTION)
-            .whereGreaterThanOrEqualTo("visiting_time", today)
-            .orderBy("visiting_time", Query.Direction.DESCENDING)
+            .orderBy("time_stamp", Query.Direction.DESCENDING)
+            .whereGreaterThanOrEqualTo("time_stamp", startOfDay)
+            .whereLessThan("time_stamp", endOfDay)
             .get()
             .addOnSuccessListener { result ->
                 listVisitor.clear()

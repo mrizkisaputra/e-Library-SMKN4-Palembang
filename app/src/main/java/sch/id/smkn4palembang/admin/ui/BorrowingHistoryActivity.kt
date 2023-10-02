@@ -51,7 +51,7 @@ class BorrowingHistoryActivity : AppCompatActivity() {
 
         val collection = firestore.collection(Reference.BORROWING_HISTORY_COLLECTION)
         collection
-            .orderBy("dateTime", Query.Direction.DESCENDING)
+            .orderBy("timestamp", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
                 listBorrowingHistory.clear()

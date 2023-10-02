@@ -40,6 +40,9 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <activity android:name=".ui.VideoProfileActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.ELibrary"/>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
         <activity

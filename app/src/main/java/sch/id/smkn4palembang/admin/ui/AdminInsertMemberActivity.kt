@@ -34,6 +34,7 @@ import java.io.ByteArrayOutputStream
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.util.Date
 import java.util.UUID
 
 class AdminInsertMemberActivity : AppCompatActivity() {
@@ -221,7 +222,8 @@ class AdminInsertMemberActivity : AppCompatActivity() {
             "contact" to contact,
             "id" to id,
             "password" to password,
-            "date_time" to dateTime
+            "date_time" to dateTime,
+            "time_stamp" to Date().time
         )
 
         firestore.collection(Reference.MEMBERS_COLLECTION)

@@ -7,5 +7,6 @@ data class Member(
     val contact: String? = null,
     val id: String? = null,
     val password: String? = null,
-    val dateTime: String? = null
+    val dateTime: String? = null,
+    val time_stamp: Long? = null
 )
