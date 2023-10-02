@@ -10,4 +10,4 @@ while also enabling online catalog access.
 - Firebase
 
 ## Install the APP
-download and Install here -> https://drive.google.com/file/d/1O05VZCJL4dlS20_686WA21hYDttDW5BQ/view?usp=sharing
+download and Install here -> https://drive.google.com/file/d/1KnGKPMV_2o2rheaukkS8nb4rfdEV1a6j/view?usp=sharing
